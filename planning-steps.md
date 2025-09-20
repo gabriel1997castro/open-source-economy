@@ -72,13 +72,25 @@ CREATE TABLE newsletter_subscriptions (
 // shared/types.ts
 export interface ContactFormData {
   name: string;
-  linkedin: string | null;
+  linkedin?: string;
   email: string;
   message: string;
 }
 
 export interface NewsletterSubscription {
   email: string;
+}
+
+// Consider adding response types too:
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+}
+
+export interface ContactSubmissionResponse {
+  id: number;
+  message: string;
 }
 
 // API endpoints to implement:
@@ -92,6 +104,22 @@ export interface NewsletterSubscription {
 - Implement Zod for runtime validation
 - Custom error classes for different error types
 - Consistent API response format
+
+```typescript
+// validation/schemas.ts
+import { z } from "zod";
+
+export const contactFormSchema = z.object({
+  name: z.string().min(1, "Name is required").max(255),
+  email: z.string().email("Invalid email format").max(255),
+  linkedin: z.string().url("Invalid LinkedIn URL").optional().or(z.literal("")),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+export const newsletterSchema = z.object({
+  email: z.string().email("Invalid email format").max(255),
+});
+```
 
 ### **Phase 3: Backend Implementation**
 
