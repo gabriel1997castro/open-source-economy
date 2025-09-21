@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { clsx } from "clsx";
 
 type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
