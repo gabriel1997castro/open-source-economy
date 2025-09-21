@@ -3,6 +3,7 @@ import {
   contactFormSchema,
   ContactFormData,
 } from "@open-source-economy/shared";
+import { ContactService } from "../services/contactService";
 
 const router = express.Router();
 
@@ -19,12 +20,13 @@ router.post("/", async (req: Request, res: Response) => {
 
     const data: ContactFormData = validation.data;
 
-    // TODO: Save to database
     console.log("Contact form data:", data);
+    const submission = await ContactService.createContactSubmission(data);
 
     return res.status(201).json({
       success: true,
       message: "Thank you for your message! We'll get back to you soon!",
+      data: { id: submission.id },
     });
   } catch (error) {
     console.error("Contact submission error:", error);
