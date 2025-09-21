@@ -23,14 +23,11 @@ export class ContactController {
       const limit = parseInt(req.query.limit as string) || 50;
       const offset = parseInt(req.query.offset as string) || 0;
 
-      const submissions = await ContactService.getContactSubmissions(
-        limit,
-        offset
-      );
+      const result = await ContactService.getContactSubmissions(limit, offset);
 
-      const response: ApiResponse<typeof submissions> = {
+      const response: ApiResponse<typeof result> = {
         success: true,
-        data: submissions,
+        data: result,
       };
 
       return res.json(response);

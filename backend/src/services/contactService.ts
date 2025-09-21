@@ -10,7 +10,6 @@ export class ContactService {
           email: data.email,
           message: data.message,
           linkedin: data.linkedin || null,
-          createdAt: new Date(),
         },
       });
 
@@ -23,13 +22,24 @@ export class ContactService {
 
   static async getContactSubmissions(limit = 50, offset = 0) {
     try {
-      const submissions = await prisma.contactSubmission.findMany({
-        orderBy: { createdAt: "desc" },
-        take: limit,
-        skip: offset,
-      });
+      const [submissions, total] = await Promise.all([
+        prisma.contactSubmission.findMany({
+          orderBy: { createdAt: "desc" },
+          take: limit,
+          skip: offset,
+        }),
+        prisma.contactSubmission.count(),
+      ]);
 
-      return submissions;
+      return {
+        submissions,
+        pagination: {
+          total,
+          limit,
+          offset,
+          hasMore: offset + limit < total,
+        },
+      };
     } catch (error) {
       console.error("Database error fetching contact submissions:", error);
       throw new Error("Failed to fetch contact submissions");
