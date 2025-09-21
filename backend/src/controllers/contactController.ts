@@ -1,46 +1,24 @@
-import { Request, Response } from "express";
-import {
-  contactFormSchema,
-  ContactFormData,
-} from "@open-source-economy/shared";
+import { Request, Response, NextFunction } from "express";
+import { ContactFormData } from "@open-source-economy/shared";
 import { ContactService } from "../services/contactService";
+import { asyncHandler } from "../middleware/errorHandler";
 
 export class ContactController {
-  static async createContactSubmission(req: Request, res: Response) {
-    try {
-      // Validation
-      const validation = contactFormSchema.safeParse(req.body);
-      if (!validation.success) {
-        return res.status(400).json({
-          success: false,
-          error: "Validation failed",
-          details: validation.error.issues,
-        });
-      }
-
-      const data: ContactFormData = validation.data;
-
-      // Business logic
+  static createContactSubmission = asyncHandler(
+    async (req: Request, res: Response) => {
+      const data: ContactFormData = req.body;
       const submission = await ContactService.createContactSubmission(data);
-
-      console.log("Contact form submitted:", submission.id);
 
       return res.status(201).json({
         success: true,
         message: "Thank you for your message! We'll get back to you soon!",
         data: { id: submission.id },
       });
-    } catch (error) {
-      console.error("Contact submission error:", error);
-      return res.status(500).json({
-        success: false,
-        error: "Failed to submit contact form. Please try again.",
-      });
     }
-  }
+  );
 
-  static async getContactSubmissions(req: Request, res: Response) {
-    try {
+  static getContactSubmissions = asyncHandler(
+    async (req: Request, res: Response) => {
       const limit = parseInt(req.query.limit as string) || 50;
       const offset = parseInt(req.query.offset as string) || 0;
 
@@ -53,17 +31,11 @@ export class ContactController {
         success: true,
         data: submissions,
       });
-    } catch (error) {
-      console.error("Error fetching contact submissions:", error);
-      return res.status(500).json({
-        success: false,
-        error: "Failed to fetch contact submissions",
-      });
     }
-  }
+  );
 
-  static async getContactSubmissionById(req: Request, res: Response) {
-    try {
+  static getContactSubmissionById = asyncHandler(
+    async (req: Request, res: Response) => {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
         return res.status(400).json({
@@ -85,12 +57,6 @@ export class ContactController {
         success: true,
         data: submission,
       });
-    } catch (error) {
-      console.error("Error fetching contact submission:", error);
-      return res.status(500).json({
-        success: false,
-        error: "Failed to fetch contact submission",
-      });
     }
-  }
+  );
 }
