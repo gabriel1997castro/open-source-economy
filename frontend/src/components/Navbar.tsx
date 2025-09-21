@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { clsx } from "clsx";
 import { Button } from "./Button";
+import { Logo } from "./Logo";
 
 const navigation = [
   { name: "Home", href: "#", current: true },
@@ -15,24 +16,10 @@ export function Navbar() {
 
   return (
     <nav className="bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center space-x-3">
-              <div>
-                <img src="favicon.png" alt="Logo" className="h-8" />
-              </div>
-              <div className="text-neutral-white">
-                <div className="text-lg font-semibold leading-tight">
-                  Open Source
-                </div>
-                <div className="text-lg font-semibold leading-tight">
-                  Economy
-                </div>
-              </div>
-            </div>
-          </div>
+          <Logo />
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
@@ -45,7 +32,7 @@ export function Navbar() {
                     item.current === true
                       ? "text-primary-500 underline underline-offset-4"
                       : "text-neutral-white hover:text-primary-500 hover:underline hover:underline-offset-4",
-                    "px-3 py-2 text-sm font-medium transition-colors duration-200"
+                    "px-2 py-2 transition-colors duration-200 text-sm lg:px-3 lg:text-base text-nowrap"
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
