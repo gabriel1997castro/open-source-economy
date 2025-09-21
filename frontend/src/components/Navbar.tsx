@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { clsx } from "clsx";
+import { Button } from "./Button";
 
 const navigation = [
   { name: "Home", href: "#", current: true },
@@ -56,9 +57,9 @@ export function Navbar() {
 
           {/* Sign In Button */}
           <div className="hidden md:block">
-            <button className="bg-gradient-to-r from-primary-500 to-secondary-300 hover:from-primary-700 hover:to-secondary-500 text-neutral-white px-6 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105">
+            <Button variant="primary" size="md">
               Sign In
-            </button>
+            </Button>
           </div>
 
           {/* Mobile menu button */}
