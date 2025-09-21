@@ -1,4 +1,4 @@
-import { contactFormSchema } from "../validation/schemas";
+import { contactFormSchema } from "../validation";
 import { z } from "zod";
 
 export interface ContactSubmissionResponse {
