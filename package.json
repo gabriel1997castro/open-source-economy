@@ -15,8 +15,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@heroicons/react": "^2.2.0"
-  }
+  "description": ""
 }

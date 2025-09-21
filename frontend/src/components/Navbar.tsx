@@ -11,7 +11,6 @@ const navigation = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  console.log({ navigation });
 
   return (
     <nav className="bg-background">
