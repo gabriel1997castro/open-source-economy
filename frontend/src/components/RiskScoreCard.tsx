@@ -28,27 +28,9 @@ export const RiskScoreCard = () => {
             <h3 className="text-xl font-bold text-neutral-white">RISK SCORE</h3>
           </div>
 
-          {/* Circular Progress */}
           <div className="flex justify-center">
             <div className="relative w-56 h-56">
-              {/* Background Circle */}
               <img src={RiskScoreImg} alt="Risk Score" className="w-56 h-56" />
-
-              {/* Center Content */}
-              {/* <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-center">
-                  <div className="text-sm text-neutral-gray-200 mb-1">
-                    SCORE
-                  </div>
-                  <div
-                    className={`text-2xl font-bold ${getScoreColor(
-                      riskData.score
-                    )}`}
-                  >
-                    {riskData.score}%
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
           {/* Why This Score Matters */}
