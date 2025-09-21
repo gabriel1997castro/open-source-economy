@@ -1,19 +1,17 @@
-import {
-  BuildingOfficeIcon,
-  CodeBracketIcon,
-  UsersIcon,
-} from "@heroicons/react/24/outline";
+import TerminalIcon from "../assets/terminal.svg";
+import UsersIcon from "../assets/users.svg";
+import CompaniesIcon from "../assets/companies.svg";
 
 const statistics = [
   {
     id: 1,
-    icon: BuildingOfficeIcon,
+    icon: CompaniesIcon,
     percentage: "90%",
     description: "of companies are using open source projects",
   },
   {
     id: 2,
-    icon: CodeBracketIcon,
+    icon: TerminalIcon,
     percentage: "76%",
     description: "of code in codebases is open source",
   },
@@ -51,25 +49,22 @@ export const OpenSourceCost = () => {
         </div>
 
         {/* Statistics Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {statistics.map((stat) => (
             <div
               key={stat.id}
               className="text-center transition-all duration-200 transform hover:scale-105"
             >
               {/* Icon */}
-              <div className="flex justify-center mb-6">
+              <div className="flex justify-center mb-2">
                 <div className="w-16 h-16 flex items-center justify-center">
-                  <stat.icon
-                    className="w-12 h-12 text-primary-500"
-                    strokeWidth={1.5}
-                  />
+                  <img src={stat.icon} alt="Icon" className="w-12" />
                 </div>
               </div>
 
               {/* Percentage */}
               <div className="mb-4">
-                <span className="text-5xl lg:text-6xl font-bold text-primary-500">
+                <span className="text-5xl lg:text-5xl text-primary-500">
                   {stat.percentage}
                 </span>
               </div>
@@ -81,19 +76,6 @@ export const OpenSourceCost = () => {
             </div>
           ))}
         </div>
-
-        {/* Bottom Section - Log4Shell Reference */}
-        {/* <div className="text-center">
-          <h2 className="text-2xl sm:text-3xl lg:text-7xl font-bold text-neutral-white mb-6">
-            Do You Remember <span className="text-primary-500">Log4Shell</span>?
-          </h2>
-
-          <p className="text-base sm:text-lg text-neutral-white leading-relaxed max-w-3xl mx-auto">
-            In December 2021, Log4Shell (CVE-2021-44228) exposed millions of
-            Java-based systems worldwide. A single logging library triggered a
-            global cybersecurity crisis with catastrophic consequences.
-          </p>
-        </div> */}
       </div>
     </section>
   );
