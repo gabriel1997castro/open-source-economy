@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ContactFormData } from "@open-source-economy/shared";
+import { ApiResponse, ContactFormData } from "@open-source-economy/shared";
 import { ContactService } from "../services/contactService";
 import { asyncHandler } from "../middleware/errorHandler";
 
@@ -9,11 +9,12 @@ export class ContactController {
       const data: ContactFormData = req.body;
       const submission = await ContactService.createContactSubmission(data);
 
-      return res.status(201).json({
+      const response: ApiResponse<{ id: number }> = {
         success: true,
         message: "Thank you for your message! We'll get back to you soon!",
         data: { id: submission.id },
-      });
+      };
+      return res.status(201).json(response);
     }
   );
 
@@ -27,10 +28,12 @@ export class ContactController {
         offset
       );
 
-      return res.json({
+      const response: ApiResponse<typeof submissions> = {
         success: true,
         data: submissions,
-      });
+      };
+
+      return res.json(response);
     }
   );
 
@@ -38,25 +41,28 @@ export class ContactController {
     async (req: Request, res: Response) => {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
-        return res.status(400).json({
+        const response: ApiResponse<null> = {
           success: false,
           error: "Invalid submission ID",
-        });
+        };
+        return res.status(400).json(response);
       }
 
       const submission = await ContactService.getContactSubmissionById(id);
 
       if (!submission) {
-        return res.status(404).json({
+        const response: ApiResponse<null> = {
           success: false,
           error: "Contact submission not found",
-        });
+        };
+        return res.status(404).json(response);
       }
 
-      return res.json({
+      const response: ApiResponse<typeof submission> = {
         success: true,
         data: submission,
-      });
+      };
+      return res.json(response);
     }
   );
 }
