@@ -1,15 +1,20 @@
 {
-  "name": "backend",
+  "name": "@open-source-economy/backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:db": "npx ts-node src/test-db.ts"
+    "test:db": "npx ts-node src/test-db.ts",
+    "dev": "ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@open-source-economy/shared": "*",
     "@prisma/client": "^6.16.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
