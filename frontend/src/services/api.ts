@@ -91,30 +91,4 @@ export class ContactApiService {
       };
     }
   }
-
-  /**
-   * Health check
-   */
-  static async healthCheck(): Promise<ApiResponse<{ status: string }>> {
-    try {
-      const response = await api.get<ApiResponse<{ status: string }>>(
-        "/health"
-      );
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return {
-          success: false,
-          error:
-            error.response?.data?.error ||
-            error.message ||
-            "Network error occurred",
-        };
-      }
-      return {
-        success: false,
-        error: "An unexpected error occurred",
-      };
-    }
-  }
 }

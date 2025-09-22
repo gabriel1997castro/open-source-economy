@@ -82,7 +82,6 @@ export const ErrorCard = ({
               <div className="flex flex-col gap-1 items-center justify-center md:gap-4 text-sm md:flex-row">
                 {errorCode && (
                   <span className="text-neutral-red-900">
-                    <span className="inline-block w-2 h-2 text-neutral-red-900 rounded-full mr-2"></span>
                     Error Code: {errorCode}
                   </span>
                 )}

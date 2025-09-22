@@ -103,7 +103,6 @@ export const useContactForm = (): UseContactFormResult => {
 
       if (response.success) {
         setIsSuccess(true);
-        console.log("Form submitted successfully:", response.data);
         // Reset form on success
         setFormData({
           fullName: "",
