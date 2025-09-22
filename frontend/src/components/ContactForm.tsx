@@ -1,4 +1,5 @@
 import { Button } from "./Button";
+import { ErrorCard } from "./ErrorCard";
 import { useContactForm } from "../hooks";
 
 export const ContactForm = () => {
@@ -10,169 +11,228 @@ export const ContactForm = () => {
     validationErrors,
     handleInputChange,
     handleSubmit,
+    clearError,
   } = useContactForm();
 
-  return (
-    <div
-      className="bg-background border border-gray-700 rounded-lg p-8 max-w-md mx-auto"
-      style={{
-        boxShadow: "0 25px 50px -12px rgba(239, 77, 172, 0.25)",
-      }}
-    >
-      {/* Header */}
-      <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold text-neutral-white mb-4">
-          Get In Touch
-        </h3>
-        <p className="text-sm text-neutral-gray-50 leading-relaxed">
-          This is so that we can get in contact with you in case any opportunity
-          comes up
-        </p>
-      </div>
+  // Determine error details for ErrorCard
+  const getErrorDetails = () => {
+    if (!error) return null;
 
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Name and Email Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    if (error.includes("connect to server")) {
+      return {
+        errorCode: "500",
+        errorType: "Server Unavailable",
+      };
+    }
+
+    if (error.includes("Server error occurred")) {
+      return {
+        errorCode: "500",
+        errorType: "Internal Server Error",
+      };
+    }
+
+    return {
+      errorCode: "400",
+      errorType: "Request Error",
+    };
+  };
+
+  const errorDetails = getErrorDetails();
+
+  return (
+    <>
+      <div
+        className="bg-background border border-gray-700 rounded-lg p-8 max-w-md mx-auto"
+        style={{
+          boxShadow: "0 25px 50px -12px rgba(239, 77, 172, 0.25)",
+        }}
+      >
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h3 className="text-2xl font-bold text-neutral-white mb-4">
+            Get In Touch
+          </h3>
+          <p className="text-sm text-neutral-gray-50 leading-relaxed">
+            This is so that we can get in contact with you in case any
+            opportunity comes up
+          </p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Name and Email Row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label
+                htmlFor="fullName"
+                className="block text-sm text-neutral-white mb-2"
+              >
+                Your Full Name<span>*</span>
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleInputChange}
+                placeholder="Your Full Name"
+                required
+                className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
+              />
+              {validationErrors.fullName && (
+                <p className="mt-1 text-sm text-red-400">
+                  {validationErrors.fullName}
+                </p>
+              )}
+            </div>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm text-neutral-white mb-2"
+              >
+                Your Email<span>*</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Your Email"
+                  required
+                  className="w-full px-4 py-3 pr-10 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <svg
+                    className="w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                    />
+                  </svg>
+                </div>
+              </div>
+              {validationErrors.email && (
+                <p className="mt-1 text-sm text-red-400">
+                  {validationErrors.email}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* LinkedIn */}
           <div>
             <label
-              htmlFor="fullName"
+              htmlFor="linkedin"
               className="block text-sm text-neutral-white mb-2"
             >
-              Your Full Name<span>*</span>
+              Your LinkedIn
             </label>
             <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
+              type="url"
+              id="linkedin"
+              name="linkedin"
+              value={formData.linkedin}
               onChange={handleInputChange}
-              placeholder="Your Full Name"
-              required
+              placeholder="Your LinkedIn"
               className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
             />
-            {validationErrors.fullName && (
+            {validationErrors.linkedin && (
               <p className="mt-1 text-sm text-red-400">
-                {validationErrors.fullName}
+                {validationErrors.linkedin}
               </p>
             )}
           </div>
+
+          {/* Message */}
           <div>
             <label
-              htmlFor="email"
+              htmlFor="message"
               className="block text-sm text-neutral-white mb-2"
             >
-              Your Email<span>*</span>
+              Your Message<span>*</span>
             </label>
-            <div className="relative">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="Your Email"
-                required
-                className="w-full px-4 py-3 pr-10 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
-              />
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                <svg
-                  className="w-5 h-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                  />
-                </svg>
-              </div>
-            </div>
-            {validationErrors.email && (
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              placeholder="Enter your message..."
+              required
+              rows={4}
+              className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors resize-vertical"
+            />
+            {validationErrors.message && (
               <p className="mt-1 text-sm text-red-400">
-                {validationErrors.email}
+                {validationErrors.message}
               </p>
             )}
           </div>
-        </div>
 
-        {/* LinkedIn */}
-        <div>
-          <label
-            htmlFor="linkedin"
-            className="block text-sm text-neutral-white mb-2"
-          >
-            Your LinkedIn
-          </label>
-          <input
-            type="url"
-            id="linkedin"
-            name="linkedin"
-            value={formData.linkedin}
-            onChange={handleInputChange}
-            placeholder="Your LinkedIn"
-            className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
-          />
-          {validationErrors.linkedin && (
-            <p className="mt-1 text-sm text-red-400">
-              {validationErrors.linkedin}
-            </p>
-          )}
-        </div>
+          {/* Submit Button */}
+          <div className="pt-4">
+            {isSuccess && (
+              <div className="mb-4 p-4 bg-green-900/30 border border-green-500/60 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-green-400 mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-green-300 font-medium text-sm mb-1">
+                      Message sent successfully!
+                    </h4>
+                    <p className="text-green-200 text-sm">
+                      Thank you for your message! We'll get back to you soon.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
 
-        {/* Message */}
-        <div>
-          <label
-            htmlFor="message"
-            className="block text-sm text-neutral-white mb-2"
-          >
-            Your Message<span>*</span>
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleInputChange}
-            placeholder="Enter your message..."
-            required
-            rows={4}
-            className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors resize-vertical"
-          />
-          {validationErrors.message && (
-            <p className="mt-1 text-sm text-red-400">
-              {validationErrors.message}
-            </p>
-          )}
-        </div>
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              className="w-full justify-center"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send"}
+            </Button>
+          </div>
+        </form>
+      </div>
 
-        {/* Submit Button */}
-        <div className="pt-4">
-          {error && (
-            <div className="mb-4 p-3 bg-red-900/20 border border-red-500/50 rounded-lg text-red-300 text-sm">
-              {error}
-            </div>
-          )}
-
-          {isSuccess && (
-            <div className="mb-4 p-3 bg-green-900/20 border border-green-500/50 rounded-lg text-green-300 text-sm">
-              Thank you for your message! We'll get back to you soon.
-            </div>
-          )}
-
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            className="w-full justify-center"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Sending..." : "Send"}
-          </Button>
-        </div>
-      </form>
-    </div>
+      {/* Error Card Modal */}
+      {error && errorDetails && (
+        <ErrorCard
+          message={error}
+          errorCode={errorDetails.errorCode}
+          errorType={errorDetails.errorType}
+          onRetry={clearError}
+          onClose={clearError}
+          retryButtonText="Try Again"
+        />
+      )}
+    </>
   );
 };

@@ -31,10 +31,27 @@ export class ContactApiService {
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        // Handle different types of errors
+        if (error.code === "ECONNREFUSED" || error.code === "ERR_NETWORK") {
+          return {
+            success: false,
+            error:
+              "Unable to connect to server. Please check your connection and try again.",
+          };
+        }
+
+        if (error.response?.status === 500) {
+          return {
+            success: false,
+            error: "Server error occurred. Please try again later.",
+          };
+        }
+
         return {
           success: false,
           error:
             error.response?.data?.error ||
+            error.response?.data?.message ||
             error.message ||
             "Network error occurred",
         };

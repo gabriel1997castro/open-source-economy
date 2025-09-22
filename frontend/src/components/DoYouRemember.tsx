@@ -93,7 +93,7 @@ const AnimatedImpactCard = ({
       style={animation.style}
     >
       {/* Icon & Title */}
-      <div className="mb-4">
+      <div className="mb-4" ref={iconAnimation.ref}>
         <img
           src={impact.icon}
           alt={impact.title}

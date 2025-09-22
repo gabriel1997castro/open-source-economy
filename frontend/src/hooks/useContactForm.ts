@@ -21,6 +21,7 @@ export interface UseContactFormResult {
   ) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   resetForm: () => void;
+  clearError: () => void;
 }
 
 export const useContactForm = (): UseContactFormResult => {
@@ -136,6 +137,10 @@ export const useContactForm = (): UseContactFormResult => {
     setValidationErrors({});
   };
 
+  const clearError = () => {
+    setError(null);
+  };
+
   return {
     formData,
     isSubmitting,
@@ -145,5 +150,6 @@ export const useContactForm = (): UseContactFormResult => {
     handleInputChange,
     handleSubmit,
     resetForm,
+    clearError,
   };
 };
