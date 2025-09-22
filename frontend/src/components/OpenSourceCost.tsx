@@ -45,7 +45,13 @@ const AnimatedStatistic = ({
       {/* Icon */}
       <div className="flex justify-center mb-2">
         <div className="w-16 h-16 flex items-center justify-center">
-          <img src={stat.icon} alt="Icon" className="w-12" />
+          <img 
+            src={stat.icon} 
+            alt="Icon" 
+            width="48"
+            height="48"
+            className="w-12 h-12" 
+          />
         </div>
       </div>
 

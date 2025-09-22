@@ -77,7 +77,7 @@ const AnimatedImpactCard = ({
   return (
     <div
       ref={cardRef}
-      className={`text-left transform transition-all duration-700 ease-out ${
+      className={`text-left transform transition-all duration-700 ease-out ml-2 ${
         isVisible
           ? "translate-y-0 opacity-100 scale-100"
           : "translate-y-8 opacity-0 scale-95"
@@ -91,7 +91,9 @@ const AnimatedImpactCard = ({
         <img
           src={impact.icon}
           alt={impact.title}
-          className={`transform transition-transform duration-500 ${
+          width="48"
+          height="48"
+          className={`w-12 h-12 transform transition-transform duration-500 ${
             isVisible ? "scale-100" : "scale-75"
           }`}
           style={{
