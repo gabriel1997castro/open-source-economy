@@ -15,6 +15,7 @@ export interface UseContactFormResult {
   isSubmitting: boolean;
   isSuccess: boolean;
   error: string | null;
+  validationErrors: { [key: string]: string };
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -33,6 +34,38 @@ export const useContactForm = (): UseContactFormResult => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<{
+    [key: string]: string;
+  }>({});
+
+  const validateForm = (): boolean => {
+    const errors: { [key: string]: string } = {};
+
+    // Validate required fields
+    if (!formData.fullName.trim()) {
+      errors.fullName = "Name is required";
+    }
+
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    if (!formData.message.trim()) {
+      errors.message = "Message is required";
+    } else if (formData.message.trim().length < 10) {
+      errors.message = "Message must be at least 10 characters long";
+    }
+
+    // Validate LinkedIn URL if provided
+    if (formData.linkedin.trim() && !/^https?:\/\/.+/.test(formData.linkedin)) {
+      errors.linkedin = "Please enter a valid URL";
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -46,6 +79,11 @@ export const useContactForm = (): UseContactFormResult => {
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
 
     setIsSubmitting(true);
     setError(null);
@@ -95,6 +133,7 @@ export const useContactForm = (): UseContactFormResult => {
     setIsSubmitting(false);
     setIsSuccess(false);
     setError(null);
+    setValidationErrors({});
   };
 
   return {
@@ -102,6 +141,7 @@ export const useContactForm = (): UseContactFormResult => {
     isSubmitting,
     isSuccess,
     error,
+    validationErrors,
     handleInputChange,
     handleSubmit,
     resetForm,

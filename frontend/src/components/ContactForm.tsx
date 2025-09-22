@@ -7,6 +7,7 @@ export const ContactForm = () => {
     isSubmitting,
     isSuccess,
     error,
+    validationErrors,
     handleInputChange,
     handleSubmit,
   } = useContactForm();
@@ -38,7 +39,7 @@ export const ContactForm = () => {
               htmlFor="fullName"
               className="block text-sm text-neutral-white mb-2"
             >
-              Your Full Name<span className="text-primary-500">*</span>
+              Your Full Name<span>*</span>
             </label>
             <input
               type="text"
@@ -50,13 +51,18 @@ export const ContactForm = () => {
               required
               className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
             />
+            {validationErrors.fullName && (
+              <p className="mt-1 text-sm text-red-400">
+                {validationErrors.fullName}
+              </p>
+            )}
           </div>
           <div>
             <label
               htmlFor="email"
               className="block text-sm text-neutral-white mb-2"
             >
-              Your Email<span className="text-primary-500">*</span>
+              Your Email<span>*</span>
             </label>
             <div className="relative">
               <input
@@ -85,6 +91,11 @@ export const ContactForm = () => {
                 </svg>
               </div>
             </div>
+            {validationErrors.email && (
+              <p className="mt-1 text-sm text-red-400">
+                {validationErrors.email}
+              </p>
+            )}
           </div>
         </div>
 
@@ -105,6 +116,11 @@ export const ContactForm = () => {
             placeholder="Your LinkedIn"
             className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
           />
+          {validationErrors.linkedin && (
+            <p className="mt-1 text-sm text-red-400">
+              {validationErrors.linkedin}
+            </p>
+          )}
         </div>
 
         {/* Message */}
@@ -113,7 +129,7 @@ export const ContactForm = () => {
             htmlFor="message"
             className="block text-sm text-neutral-white mb-2"
           >
-            Your Message<span className="text-primary-500">*</span>
+            Your Message<span>*</span>
           </label>
           <textarea
             id="message"
@@ -125,6 +141,11 @@ export const ContactForm = () => {
             rows={4}
             className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors resize-vertical"
           />
+          {validationErrors.message && (
+            <p className="mt-1 text-sm text-red-400">
+              {validationErrors.message}
+            </p>
+          )}
         </div>
 
         {/* Submit Button */}
