@@ -1,9 +1,3 @@
-// import {
-//   ChartBarIcon,
-//   CurrencyDollarIcon,
-//   ExclamationTriangleIcon,
-// } from "@heroicons/react/24/outline";
-
 import Decrease from "../assets/decrease.svg";
 import Money from "../assets/money.svg";
 import Pause from "../assets/pause.svg";

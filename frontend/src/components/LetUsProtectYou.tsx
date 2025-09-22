@@ -57,7 +57,7 @@ export const LetUsProtectYou = () => {
 
                 {/* Step Content */}
                 <div className="flex-1">
-                  <h3 className="text-4xl lg:text-5xl  text-neutral-white mb-4">
+                  <h3 className="text-4xl lg:text-5xl text-neutral-white mb-4">
                     {step.title}
                   </h3>
                   <p className="text-base lg:text-lg text-neutral-white leading-relaxed">
