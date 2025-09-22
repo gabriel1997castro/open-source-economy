@@ -31,8 +31,8 @@ export function Navbar() {
                   className={clsx(
                     item.current === true
                       ? "text-primary-500 underline underline-offset-4"
-                      : "text-neutral-white hover:text-primary-500 hover:underline hover:underline-offset-4",
-                    "px-2 py-2 transition-colors duration-200 text-sm lg:px-3 lg:text-base text-nowrap"
+                      : "text-neutral-white hover:text-primary-500 hover:underline hover:underline-offset-4 transform hover:scale-105",
+                    "px-2 py-2 transition-all duration-300 ease-out text-sm lg:px-3 lg:text-base text-nowrap"
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
