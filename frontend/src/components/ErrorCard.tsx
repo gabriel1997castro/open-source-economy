@@ -24,10 +24,7 @@ export const ErrorCard = ({
   return (
     <div className="fixed inset-0 bg-background/98 flex items-center justify-center p-4 z-50 mb-[-40px]">
       <div
-        className={`bg-background border border-gray-700 rounded-lg p-8 max-w-md mx-auto relative ${className}`}
-        style={{
-          boxShadow: "0 25px 50px -12px rgba(239, 77, 172, 0.25)",
-        }}
+        className={`bg-background border border-gray-700 rounded-lg p-8 max-w-md mx-auto relative shadow-primary ${className}`}
       >
         {/* Close Button */}
         {onClose && (

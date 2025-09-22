@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 import { Layout } from "./components/Layout";
 import { OpenSourceCost } from "./components/OpenSourceCost";
 import { LoadingSpinner } from "./components/LoadingSpinner";
+import { Footer } from "./components/footer";
 
 // Lazy load components that are below the fold
 const DoYouRemember = lazy(() =>
@@ -40,6 +41,8 @@ function App() {
         <Suspense fallback={<LoadingSpinner />}>
           <GetInTouch />
         </Suspense>
+
+        <Footer />
       </div>
     </Layout>
   );

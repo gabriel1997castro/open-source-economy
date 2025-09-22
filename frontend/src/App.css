@@ -20,6 +20,8 @@
   --gradient-brand: linear-gradient(to right, #ff518c, #5c3994);
   --gradient-brand-hover: linear-gradient(to right, #e84a7f, #330879);
   --color-background: #00102a;
+  --color-input-bg: #001331;
+  --shadow-primary: 0 25px 50px -12px rgba(239, 77, 172, 0.25);
 }
 
 /* Global smooth scrolling and base styles */
