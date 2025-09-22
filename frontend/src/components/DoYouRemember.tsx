@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
 import Decrease from "../assets/decrease.svg";
 import Money from "../assets/money.svg";
 import Pause from "../assets/pause.svg";
+import { useScrollAnimation } from "../hooks";
 
 const impactData = [
   {
@@ -46,45 +46,51 @@ const AnimatedImpactCard = ({
   impact: (typeof impactData)[0];
   index: number;
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const animation = useScrollAnimation({
+    animationType: "scaleIn",
+    delay: index * 200,
+    threshold: 0.2,
+    rootMargin: "0px 0px -50px 0px",
+  });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
+  const iconAnimation = useScrollAnimation({
+    animationType: "scaleIn",
+    delay: index * 200 + 300,
+    threshold: 0.2,
+  });
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
+  const titleAnimation = useScrollAnimation({
+    animationType: "fadeInLeft",
+    delay: index * 200 + 400,
+    threshold: 0.2,
+  });
 
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
+  // Create animations for each item (fixed number based on impact.items length)
+  const item1Animation = useScrollAnimation({
+    animationType: "fadeInLeft",
+    delay: index * 200 + 500,
+    threshold: 0.2,
+  });
+
+  const item2Animation = useScrollAnimation({
+    animationType: "fadeInLeft",
+    delay: index * 200 + 600,
+    threshold: 0.2,
+  });
+
+  const item3Animation = useScrollAnimation({
+    animationType: "fadeInLeft",
+    delay: index * 200 + 700,
+    threshold: 0.2,
+  });
+
+  const itemAnimations = [item1Animation, item2Animation, item3Animation];
 
   return (
     <div
-      ref={cardRef}
-      className={`text-left transform transition-all duration-700 ease-out ml-2 ${
-        isVisible
-          ? "translate-y-0 opacity-100 scale-100"
-          : "translate-y-8 opacity-0 scale-95"
-      }`}
-      style={{
-        transitionDelay: `${index * 200}ms`,
-      }}
+      ref={animation.ref}
+      className={`text-left ml-2 ${animation.className}`}
+      style={animation.style}
     >
       {/* Icon & Title */}
       <div className="mb-4">
@@ -93,24 +99,15 @@ const AnimatedImpactCard = ({
           alt={impact.title}
           width="48"
           height="48"
-          className={`w-12 h-12 transform transition-transform duration-500 ${
-            isVisible ? "scale-100" : "scale-75"
-          }`}
-          style={{
-            transitionDelay: `${index * 200 + 300}ms`,
-          }}
+          className={`w-12 h-12 ${iconAnimation.className}`}
+          style={iconAnimation.style}
         />
       </div>
       <div className="flex items-center mb-6">
         <h3
-          className={`text-xl lg:text-5xl leading-tight ${
-            impact.color
-          } transform transition-all duration-600 ${
-            isVisible ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
-          }`}
-          style={{
-            transitionDelay: `${index * 200 + 400}ms`,
-          }}
+          ref={titleAnimation.ref}
+          className={`text-xl lg:text-5xl leading-tight ${impact.color} ${titleAnimation.className}`}
+          style={titleAnimation.style}
         >
           {impact.title}
         </h3>
@@ -121,14 +118,11 @@ const AnimatedImpactCard = ({
         {impact.items.map((item, itemIndex) => (
           <p
             key={itemIndex}
-            className={`text-sm lg:text-base text-neutral-white transform transition-all duration-500 ${
-              isVisible
-                ? "translate-x-0 opacity-100"
-                : "translate-x-6 opacity-0"
+            ref={itemAnimations[itemIndex]?.ref}
+            className={`text-sm lg:text-base text-neutral-white ${
+              itemAnimations[itemIndex]?.className || ""
             }`}
-            style={{
-              transitionDelay: `${index * 200 + 500 + itemIndex * 100}ms`,
-            }}
+            style={itemAnimations[itemIndex]?.style}
           >
             {item}
           </p>
@@ -139,55 +133,24 @@ const AnimatedImpactCard = ({
 };
 
 export const DoYouRemember = () => {
-  const [headerVisible, setHeaderVisible] = useState(false);
-  const [footerVisible, setFooterVisible] = useState(false);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const footerRef = useRef<HTMLDivElement>(null);
+  const headerAnimation = useScrollAnimation({
+    animationType: "fadeInUp",
+    threshold: 0.3,
+  });
 
-  useEffect(() => {
-    const headerObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHeaderVisible(true);
-          headerObserver.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.3 }
-    );
+  const footerAnimation = useScrollAnimation({
+    animationType: "fadeInUp",
+    threshold: 0.5,
+  });
 
-    const footerObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setFooterVisible(true);
-          footerObserver.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (headerRef.current) {
-      headerObserver.observe(headerRef.current);
-    }
-    if (footerRef.current) {
-      footerObserver.observe(footerRef.current);
-    }
-
-    return () => {
-      if (headerRef.current) headerObserver.unobserve(headerRef.current);
-      if (footerRef.current) footerObserver.unobserve(footerRef.current);
-    };
-  }, []);
   return (
     <section className="relative bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Header Section */}
         <div
-          ref={headerRef}
-          className={`text-center mb-16 transform transition-all duration-700 ease-out ${
-            headerVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
-          }`}
+          ref={headerAnimation.ref}
+          className={`text-center mb-16 ${headerAnimation.className}`}
+          style={headerAnimation.style}
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-white mb-8">
             Do You Remember <span className="text-primary-500">Log4Shell</span>?
@@ -209,12 +172,9 @@ export const DoYouRemember = () => {
 
         {/* Bottom Call to Action */}
         <div
-          ref={footerRef}
-          className={`text-center transform transition-all duration-700 ease-out ${
-            footerVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
-          }`}
+          ref={footerAnimation.ref}
+          className={`text-center ${footerAnimation.className}`}
+          style={footerAnimation.style}
         >
           <p className="text-lg sm:text-xl text-neutral-gray-50 ">
             Don't let your organization be the next case study.

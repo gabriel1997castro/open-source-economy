@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { RiskScoreCard } from "./RiskScoreCard";
+import { useScrollAnimation } from "../hooks";
 
 const steps = [
   {
@@ -35,55 +35,43 @@ const AnimatedStep = ({
   step: (typeof steps)[0];
   index: number;
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const stepRef = useRef<HTMLDivElement>(null);
+  const stepAnimation = useScrollAnimation({
+    animationType: "fadeInLeft",
+    delay: index * 100,
+    threshold: 0.3,
+    rootMargin: "0px 0px -50px 0px",
+  });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.3,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
+  const numberAnimation = useScrollAnimation({
+    animationType: "scaleIn",
+    delay: index * 200 + 200,
+    threshold: 0.3,
+  });
 
-    if (stepRef.current) {
-      observer.observe(stepRef.current);
-    }
+  const titleAnimation = useScrollAnimation({
+    animationType: "fadeInUp",
+    delay: index * 200 + 300,
+    threshold: 0.3,
+  });
 
-    return () => {
-      if (stepRef.current) {
-        observer.unobserve(stepRef.current);
-      }
-    };
-  }, []);
+  const descriptionAnimation = useScrollAnimation({
+    animationType: "fadeInUp",
+    delay: index * 200 + 400,
+    threshold: 0.3,
+  });
 
   return (
     <div
-      ref={stepRef}
-      className={`flex gap-6 transform transition-all duration-700 ease-out ${
-        isVisible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
-      }`}
-      style={{
-        transitionDelay: `${index * 200}ms`,
-      }}
+      ref={stepAnimation.ref}
+      className={`flex gap-6 ${stepAnimation.className}`}
+      style={stepAnimation.style}
     >
       {/* Step Number */}
       <div className="flex-shrink-0">
         <span
-          className={`text-4xl lg:text-5xl ${
-            step.color
-          } transform transition-transform duration-500 ${
-            isVisible ? "scale-100" : "scale-75"
-          }`}
-          style={{
-            transitionDelay: `${index * 200 + 200}ms`,
-          }}
+          ref={numberAnimation.ref}
+          className={`text-4xl lg:text-5xl ${step.color} ${numberAnimation.className}`}
+          style={numberAnimation.style}
         >
           {step.number}
         </span>
@@ -92,22 +80,16 @@ const AnimatedStep = ({
       {/* Step Content */}
       <div className="flex-1">
         <h3
-          className={`text-4xl lg:text-5xl text-neutral-white mb-4 transform transition-all duration-600 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-          }`}
-          style={{
-            transitionDelay: `${index * 200 + 300}ms`,
-          }}
+          ref={titleAnimation.ref}
+          className={`text-4xl lg:text-5xl text-neutral-white mb-4 ${titleAnimation.className}`}
+          style={titleAnimation.style}
         >
           {step.title}
         </h3>
         <p
-          className={`text-base lg:text-lg text-neutral-white leading-relaxed transform transition-all duration-500 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-          }`}
-          style={{
-            transitionDelay: `${index * 200 + 400}ms`,
-          }}
+          ref={descriptionAnimation.ref}
+          className={`text-base lg:text-lg text-neutral-white leading-relaxed ${descriptionAnimation.className}`}
+          style={descriptionAnimation.style}
         >
           {step.description}
         </p>
@@ -117,45 +99,18 @@ const AnimatedStep = ({
 };
 
 const AnimatedRiskCard = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px",
-      }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
+  const cardAnimation = useScrollAnimation({
+    animationType: "scaleIn",
+    delay: 600,
+    threshold: 0.2,
+    rootMargin: "0px 0px -50px 0px",
+  });
 
   return (
     <div
-      ref={cardRef}
-      className={`transform transition-all duration-1000 ease-out ${
-        isVisible
-          ? "translate-y-0 opacity-100 scale-100"
-          : "translate-y-12 opacity-0 scale-95"
-      }`}
-      style={{
-        transitionDelay: "600ms",
-      }}
+      ref={cardAnimation.ref}
+      className={cardAnimation.className}
+      style={cardAnimation.style}
     >
       <RiskScoreCard />
     </div>
@@ -163,43 +118,19 @@ const AnimatedRiskCard = () => {
 };
 
 export const LetUsProtectYou = () => {
-  const [headerVisible, setHeaderVisible] = useState(false);
-  const headerRef = useRef<HTMLDivElement>(null);
+  const headerAnimation = useScrollAnimation({
+    animationType: "fadeInUp",
+    threshold: 0.3,
+  });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHeaderVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.3,
-      }
-    );
-
-    if (headerRef.current) {
-      observer.observe(headerRef.current);
-    }
-
-    return () => {
-      if (headerRef.current) {
-        observer.unobserve(headerRef.current);
-      }
-    };
-  }, []);
   return (
     <section className="relative bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         {/* Header Section */}
         <div
-          ref={headerRef}
-          className={`text-center mb-12 transform transition-all duration-700 ease-out ${
-            headerVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-8 opacity-0"
-          }`}
+          ref={headerAnimation.ref}
+          className={`text-center mb-12 ${headerAnimation.className}`}
+          style={headerAnimation.style}
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-white mb-16">
             Let Us Protect You

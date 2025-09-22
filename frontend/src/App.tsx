@@ -4,15 +4,15 @@ import { Layout } from "./components/Layout";
 import { OpenSourceCost } from "./components/OpenSourceCost";
 
 // Lazy load components that are below the fold
-const DoYouRemember = lazy(() => 
-  import("./components/DoYouRemember").then(module => ({ 
-    default: module.DoYouRemember 
+const DoYouRemember = lazy(() =>
+  import("./components/DoYouRemember").then((module) => ({
+    default: module.DoYouRemember,
   }))
 );
 
-const LetUsProtectYou = lazy(() => 
-  import("./components/LetUsProtectYou").then(module => ({ 
-    default: module.LetUsProtectYou 
+const LetUsProtectYou = lazy(() =>
+  import("./components/LetUsProtectYou").then((module) => ({
+    default: module.LetUsProtectYou,
   }))
 );
 
@@ -29,12 +29,12 @@ function App() {
       <div className="bg-background min-h-screen">
         {/* Keep OpenSourceCost as immediate since it's above the fold */}
         <OpenSourceCost />
-        
+
         {/* Lazy load below-the-fold content */}
         <Suspense fallback={<LoadingSpinner />}>
           <DoYouRemember />
         </Suspense>
-        
+
         <Suspense fallback={<LoadingSpinner />}>
           <LetUsProtectYou />
         </Suspense>
