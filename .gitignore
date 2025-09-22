@@ -19,3 +19,4 @@ lerna-debug.log*
 /shared/dist/
 shared/tsconfig.tsbuildinfo
 backend/.env.test
+frontend/.env

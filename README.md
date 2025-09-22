@@ -14,6 +14,19 @@ project-root/
 └── README.md
 ```
 
+### Why we are not using authentication for the backend API
+
+1. Public Contact Forms: These endpoints are meant to be publicly accessible so anyone can contact you or subscribe to your newsletter without barriers.
+2. Simple Data Collection: We're collecting basic information (name, email, message) that users voluntarily provide.
+3. User Experience: Adding authentication would create friction for legitimate users trying to contact us or subscribe.
+
+### Security Measures we should implement
+
+1. Rate Limiting: Prevent spam by limiting requests per IP address
+2. Input Validation: Sanitize and validate all input data (implemented)
+3. Email Verification: For newsletter subscriptions, send confirmation emails
+4. CORS Configuration: Properly configure CORS for our frontend domain (implemented)
+
 ## 🚀 Getting Started
 
 ### Prerequisites
