@@ -1,33 +1,24 @@
-import { useState } from "react";
 import { Button } from "./Button";
+import { useNewsletterSubscription } from "../hooks";
 
 export const NewsletterSubscription = () => {
-  const [email, setEmail] = useState("");
-  const [isSubscribing, setIsSubscribing] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const {
+    email,
+    setEmail,
+    isSubscribing,
+    isSuccess,
+    error,
+    subscribe,
+    resetSuccess,
+  } = useNewsletterSubscription();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await subscribe();
+  };
 
-    if (!email || !email.includes("@")) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
-    setIsSubscribing(true);
-    setError("");
-
-    try {
-      // TODO: Integrate with newsletter API using ContactApiService
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
-      setIsSuccess(true);
-      setEmail("");
-    } catch {
-      setError("Failed to subscribe. Please try again.");
-    } finally {
-      setIsSubscribing(false);
-    }
+  const handleTryAgain = () => {
+    resetSuccess();
   };
 
   if (isSuccess) {
@@ -35,9 +26,17 @@ export const NewsletterSubscription = () => {
       <div className="flex flex-col space-y-4">
         <h3 className="text-lg text-neutral-white">Newsletter</h3>
         <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
-          <p className="text-green-400 text-sm">
+          <p className="text-green-400 text-sm mb-3">
             ✓ Successfully subscribed to our newsletter!
           </p>
+          <Button
+            onClick={handleTryAgain}
+            variant="primary"
+            size="sm"
+            className="text-xs"
+          >
+            Subscribe another email
+          </Button>
         </div>
       </div>
     );

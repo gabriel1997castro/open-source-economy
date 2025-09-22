@@ -3,3 +3,4 @@ export { useScrollAnimation, usePageLoadAnimation } from "./useScrollAnimation";
 export type { AnimationType } from "./useScrollAnimation";
 export { useContactForm } from "./useContactForm";
 export type { UseContactFormResult } from "./useContactForm";
+export { useNewsletterSubscription } from "./useNewsletterSubscription";
