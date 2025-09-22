@@ -1,7 +1,7 @@
-import Decrease from "../assets/decrease.svg";
-import Money from "../assets/money.svg";
-import Pause from "../assets/pause.svg";
-import { useScrollAnimation } from "../hooks";
+import Decrease from "../../assets/decrease.svg";
+import Money from "../../assets/money.svg";
+import Pause from "../../assets/pause.svg";
+import { useScrollAnimation } from "../../hooks";
 
 const impactData = [
   {

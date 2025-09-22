@@ -1,7 +1,7 @@
-import RiskScoreImg from "../assets/risk-score.svg";
-import PeopleIcon from "../assets/people.svg";
-import ShieldIcon from "../assets/shield.svg";
-import LinkIcon from "../assets/link.svg";
+import RiskScoreImg from "../../assets/risk-score.svg";
+import PeopleIcon from "../../assets/people.svg";
+import ShieldIcon from "../../assets/shield.svg";
+import LinkIcon from "../../assets/link.svg";
 
 const riskData = {
   score: 56,

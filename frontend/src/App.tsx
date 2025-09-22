@@ -1,45 +1,27 @@
 import "./App.css";
-import { Suspense, lazy } from "react";
-import { Layout } from "./components/Layout";
-import { OpenSourceCost } from "./components/OpenSourceCost";
-import { LoadingSpinner } from "./components/LoadingSpinner";
+import { Suspense } from "react";
+import { Layout, LoadingSpinner } from "./components";
 import { Footer } from "./components/footer";
-
-// Lazy load components that are below the fold
-const DoYouRemember = lazy(() =>
-  import("./components/DoYouRemember").then((module) => ({
-    default: module.DoYouRemember,
-  }))
-);
-
-const LetUsProtectYou = lazy(() =>
-  import("./components/LetUsProtectYou").then((module) => ({
-    default: module.LetUsProtectYou,
-  }))
-);
-
-const GetInTouch = lazy(() =>
-  import("./components/GetInTouch").then((module) => ({
-    default: module.GetInTouch,
-  }))
-);
+import { LandingSections } from "./lazyComponents";
 
 function App() {
   return (
     <Layout>
       <div className="bg-background min-h-screen">
-        <OpenSourceCost />
-
         <Suspense fallback={<LoadingSpinner />}>
-          <DoYouRemember />
+          <LandingSections.OpenSourceCost />
         </Suspense>
 
         <Suspense fallback={<LoadingSpinner />}>
-          <LetUsProtectYou />
+          <LandingSections.DoYouRemember />
         </Suspense>
 
         <Suspense fallback={<LoadingSpinner />}>
-          <GetInTouch />
+          <LandingSections.LetUsProtectYou />
+        </Suspense>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <LandingSections.GetInTouch />
         </Suspense>
 
         <Footer />

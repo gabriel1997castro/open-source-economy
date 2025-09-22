@@ -1,7 +1,7 @@
-import TerminalIcon from "../assets/terminal.svg";
-import UsersIcon from "../assets/users.svg";
-import CompaniesIcon from "../assets/companies.svg";
-import { useScrollAnimation } from "../hooks";
+import TerminalIcon from "../../assets/terminal.svg";
+import UsersIcon from "../../assets/users.svg";
+import CompaniesIcon from "../../assets/companies.svg";
+import { useScrollAnimation } from "../../hooks";
 
 const statistics = [
   {

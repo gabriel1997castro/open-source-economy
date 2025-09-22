@@ -1,5 +1,5 @@
-import { Button } from "./Button";
-import { useNewsletterSubscription } from "../hooks";
+import { Button } from "../ui/Button";
+import { useNewsletterSubscription } from "../../hooks";
 
 export const NewsletterSubscription = () => {
   const {

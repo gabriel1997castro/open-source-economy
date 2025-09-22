@@ -1,4 +1,4 @@
-import OpenSourceLogo from "../assets/open-source-logo.svg";
+import OpenSourceLogo from "../../assets/open-source-logo.svg";
 
 export const Logo = () => {
   return (

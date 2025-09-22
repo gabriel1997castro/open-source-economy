@@ -1,6 +1,6 @@
-import { Button } from "./Button";
-import { ErrorCard } from "./ErrorCard";
-import { useContactForm } from "../hooks";
+import { Button } from "../ui/Button";
+import { ErrorCard } from "../ui/ErrorCard";
+import { useContactForm } from "../../hooks";
 
 export const ContactForm = () => {
   const {
