@@ -16,6 +16,12 @@ const LetUsProtectYou = lazy(() =>
   }))
 );
 
+const GetInTouch = lazy(() =>
+  import("./components/GetInTouch").then((module) => ({
+    default: module.GetInTouch,
+  }))
+);
+
 // Loading component for better UX
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center py-16">
@@ -37,6 +43,10 @@ function App() {
 
         <Suspense fallback={<LoadingSpinner />}>
           <LetUsProtectYou />
+        </Suspense>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <GetInTouch />
         </Suspense>
       </div>
     </Layout>
