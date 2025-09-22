@@ -19,17 +19,21 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen">
-      <div className={`transform transition-all duration-700 ease-out ${
-        isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-      }`}>
+      <div
+        className={`transform transition-all duration-700 ease-out ${
+          isLoaded ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+        }`}
+      >
         <Navbar />
       </div>
-      <main className={`transform transition-all duration-900 ease-out ${
-        isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-      }`}
-      style={{
-        transitionDelay: '200ms'
-      }}>
+      <main
+        className={`transform transition-all duration-900 ease-out ${
+          isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+        style={{
+          transitionDelay: "200ms",
+        }}
+      >
         {children}
       </main>
     </div>

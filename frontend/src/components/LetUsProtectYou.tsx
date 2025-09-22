@@ -201,10 +201,6 @@ export const LetUsProtectYou = () => {
               : "translate-y-8 opacity-0"
           }`}
         >
-          <p className="text-base sm:text-lg text-neutral-gray-200 mb-6 max-w-2xl mx-auto">
-            Don't let your organization be the next case study.
-          </p>
-
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-white mb-16">
             Let Us Protect You
           </h2>
