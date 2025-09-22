@@ -20,8 +20,11 @@ export class NewsletterController {
         };
 
         return res.status(201).json(response);
-      } catch (error: any) {
-        if (error.message === "Email is already subscribed to newsletter") {
+      } catch (error: unknown) {
+        if (
+          error instanceof Error &&
+          error.message === "Email is already subscribed to newsletter"
+        ) {
           return res.status(409).json({
             success: false,
             error: "This email is already subscribed to our newsletter",
