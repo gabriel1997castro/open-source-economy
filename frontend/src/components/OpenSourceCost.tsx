@@ -1,6 +1,7 @@
 import TerminalIcon from "../assets/terminal.svg";
 import UsersIcon from "../assets/users.svg";
 import CompaniesIcon from "../assets/companies.svg";
+import { useScrollAnimation } from "../hooks";
 
 const statistics = [
   {
@@ -23,7 +24,57 @@ const statistics = [
   },
 ];
 
+const AnimatedStatistic = ({
+  stat,
+  index,
+}: {
+  stat: (typeof statistics)[0];
+  index: number;
+}) => {
+  const animation = useScrollAnimation({
+    delay: index * 200,
+    animationType: "scaleIn",
+  });
+
+  return (
+    <div
+      ref={animation.ref}
+      className={`text-center ${animation.className}`}
+      style={animation.style}
+    >
+      {/* Icon */}
+      <div className="flex justify-center mb-2">
+        <div className="w-16 h-16 flex items-center justify-center">
+          <img
+            src={stat.icon}
+            alt="Icon"
+            width="48"
+            height="48"
+            className="w-12 h-12"
+          />
+        </div>
+      </div>
+
+      {/* Percentage */}
+      <div className="mb-4">
+        <span className="text-5xl lg:text-5xl text-primary-500">
+          {stat.percentage}
+        </span>
+      </div>
+
+      {/* Description */}
+      <p className="text-base lg:text-xl text-neutral-white leading-relaxed max-w-xs mx-auto">
+        {stat.description}
+      </p>
+    </div>
+  );
+};
+
 export const OpenSourceCost = () => {
+  const headerAnimation = useScrollAnimation({
+    animationType: "fadeInUp",
+    threshold: 0.3,
+  });
   return (
     <section className="relative bg-background">
       {/* Background decorative border */}
@@ -31,7 +82,11 @@ export const OpenSourceCost = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         {/* Header Section */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        <div
+          ref={headerAnimation.ref}
+          className={`text-center max-w-4xl mx-auto mb-16 ${headerAnimation.className}`}
+          style={headerAnimation.style}
+        >
           <h1 className="text-4xl sm:text-5xl lg:text-6xl text-neutral-white mb-8 leading-tight">
             What's The Cost Of Using Open Source Blindly?
           </h1>
@@ -50,30 +105,8 @@ export const OpenSourceCost = () => {
 
         {/* Statistics Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {statistics.map((stat) => (
-            <div
-              key={stat.id}
-              className="text-center transition-all duration-200 transform hover:scale-105"
-            >
-              {/* Icon */}
-              <div className="flex justify-center mb-2">
-                <div className="w-16 h-16 flex items-center justify-center">
-                  <img src={stat.icon} alt="Icon" className="w-12" />
-                </div>
-              </div>
-
-              {/* Percentage */}
-              <div className="mb-4">
-                <span className="text-5xl lg:text-5xl text-primary-500">
-                  {stat.percentage}
-                </span>
-              </div>
-
-              {/* Description */}
-              <p className="text-base lg:text-xl text-neutral-white leading-relaxed max-w-xs mx-auto">
-                {stat.description}
-              </p>
-            </div>
+          {statistics.map((stat, index) => (
+            <AnimatedStatistic key={stat.id} stat={stat} index={index} />
           ))}
         </div>
       </div>

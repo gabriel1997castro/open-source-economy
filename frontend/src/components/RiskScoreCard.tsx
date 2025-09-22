@@ -30,7 +30,13 @@ export const RiskScoreCard = () => {
 
           <div className="flex justify-center">
             <div className="relative w-56 h-56">
-              <img src={RiskScoreImg} alt="Risk Score" className="w-56 h-56" />
+              <img
+                src={RiskScoreImg}
+                alt="Risk Score"
+                width="224"
+                height="224"
+                className="w-56 h-56"
+              />
             </div>
           </div>
           {/* Why This Score Matters */}
@@ -42,7 +48,7 @@ export const RiskScoreCard = () => {
               {riskData.whyThisScoreMatters.map((item, index) => (
                 <div key={index} className="flex items-start space-x-2">
                   <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-xs text-neutral-gray-200 leading-relaxed">
+                  <p className="text-xs text-neutral-white leading-relaxed">
                     {item}
                   </p>
                 </div>
@@ -58,8 +64,14 @@ export const RiskScoreCard = () => {
             <div className="space-y-2">
               {riskData.whatWeAnalyze.map((item, index) => (
                 <div key={index} className="flex items-center space-x-3">
-                  <img src={item.icon} alt={item.label} className="w-4 h-4" />
-                  <p className="text-xs text-neutral-gray-200">{item.label}</p>
+                  <img
+                    src={item.icon}
+                    alt={item.label}
+                    width="16"
+                    height="16"
+                    className="w-4 h-4"
+                  />
+                  <p className="text-xs text-neutral-white">{item.label}</p>
                 </div>
               ))}
             </div>
