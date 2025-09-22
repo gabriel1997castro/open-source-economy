@@ -1,36 +1,15 @@
-import { useState } from "react";
 import { Button } from "./Button";
-
-interface FormData {
-  fullName: string;
-  email: string;
-  linkedin: string;
-  message: string;
-}
+import { useContactForm } from "../hooks";
 
 export const ContactForm = () => {
-  const [formData, setFormData] = useState<FormData>({
-    fullName: "",
-    email: "",
-    linkedin: "",
-    message: "",
-  });
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-  };
+  const {
+    formData,
+    isSubmitting,
+    isSuccess,
+    error,
+    handleInputChange,
+    handleSubmit,
+  } = useContactForm();
 
   return (
     <div
@@ -150,13 +129,26 @@ export const ContactForm = () => {
 
         {/* Submit Button */}
         <div className="pt-4">
+          {error && (
+            <div className="mb-4 p-3 bg-red-900/20 border border-red-500/50 rounded-lg text-red-300 text-sm">
+              {error}
+            </div>
+          )}
+
+          {isSuccess && (
+            <div className="mb-4 p-3 bg-green-900/20 border border-green-500/50 rounded-lg text-green-300 text-sm">
+              Thank you for your message! We'll get back to you soon.
+            </div>
+          )}
+
           <Button
             type="submit"
             variant="primary"
             size="lg"
             className="w-full justify-center"
+            disabled={isSubmitting}
           >
-            Send
+            {isSubmitting ? "Sending..." : "Send"}
           </Button>
         </div>
       </form>
