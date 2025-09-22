@@ -1,13 +1,16 @@
 import "./App.css";
+import { DoYouRemember } from "./components/DoYouRemember";
 import { Layout } from "./components/Layout";
+import { LetUsProtectYou } from "./components/LetUsProtectYou";
+import { OpenSourceCost } from "./components/OpenSourceCost";
 
 function App() {
   return (
     <Layout>
       <div className="bg-background min-h-screen">
-        <div className="pt-20 text-white text-center">
-          {/* <h1 className="text-4xl font-bold">Welcome to Open Source Economy</h1> */}
-        </div>
+        <OpenSourceCost />
+        <DoYouRemember />
+        <LetUsProtectYou />
       </div>
     </Layout>
   );
