@@ -34,7 +34,7 @@ export const SocialLinks = ({ className = "" }: SocialLinksProps) => {
   ];
 
   return (
-    <div className={`flex space-x-4 ${className}`}>
+    <div className={`flex justify-center md:justify-start space-x-4 ${className}`}>
       {socialLinks.map((social) => (
         <a
           key={social.name}

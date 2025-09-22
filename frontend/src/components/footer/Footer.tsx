@@ -8,15 +8,15 @@ export const Footer = () => {
   return (
     <footer className="bg-background">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Logo and Description */}
-          <div className="lg:col-span-2">
+          <div className="md:col-span-2 lg:col-span-2">
             <FooterLogo />
           </div>
 
           {/* Company Links */}
-          <div>
+          <div className="md:col-span-1 lg:col-span-1">
             <FooterSection title="Company">
               <FooterLink href="/about">About Us</FooterLink>
               <FooterLink href="/mission">Our Mission</FooterLink>
@@ -27,7 +27,7 @@ export const Footer = () => {
           </div>
 
           {/* Resources Links */}
-          <div>
+          <div className="md:col-span-1 lg:col-span-1">
             <FooterSection title="Resources">
               <FooterLink href="/docs">Documentation</FooterLink>
               <FooterLink href="/blog">Blog</FooterLink>
@@ -38,8 +38,8 @@ export const Footer = () => {
           </div>
 
           {/* Newsletter and Social */}
-          <div className="flex flex-col space-y-6 lg:col-span-2">
-            <div className="mb-4 self-center">
+          <div className="md:col-span-2 lg:col-span-2 flex flex-col space-y-6">
+            <div className="md:self-center lg:self-start">
               <SocialLinks />
             </div>
             <NewsletterSubscription />
@@ -49,14 +49,16 @@ export const Footer = () => {
 
       {/* Bottom Footer */}
       <div>
-        <div className="border-t text-neutral-gray-50 max-w-7xl mx-auto"></div>
-        <div className="max-w-7xl mx-auto py-6">
+        <div className="px-0 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="border-t text-neutral-gray-50"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-            <p className="text-neutral-gray-50 text-sm">
+            <p className="text-neutral-gray-50 text-sm text-center sm:text-left">
               © Open Source Economy - Non profit organisation - CHE-440.058.692
               Switzerland
             </p>
-            <div className="flex space-x-6">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6">
               <FooterLink href="/terms">Terms Of Service</FooterLink>
               <FooterLink href="/privacy">Privacy Policy</FooterLink>
             </div>
