@@ -39,20 +39,19 @@ open-source-economy/
 ```json
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "src/server.ts",
-      "use": "@vercel/node"
+  "functions": {
+    "api/index.ts": {
+      "runtime": "@vercel/node"
     }
-  ],
+  },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/src/server.ts"
+      "src": "/(.*)",
+      "dest": "/api/index.ts"
     }
   ],
-  "buildCommand": "npm run build",
-  "installCommand": "npm install && npx prisma generate"
+  "buildCommand": "cd .. && npm run build --workspace=shared && cd backend && npm run build",
+  "installCommand": "cd .. && npm install && cd backend && npx prisma generate"
 }
 ```
 
@@ -60,12 +59,9 @@ open-source-economy/
 ```json
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dist/**",
-      "use": "@vercel/static"
-    }
-  ],
+  "buildCommand": "cd .. && npm run build --workspace=shared && cd frontend && npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "cd .. && npm install && cd frontend",
   "routes": [
     {
       "handle": "filesystem"
@@ -74,8 +70,7 @@ open-source-economy/
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "buildCommand": "npm run build"
+  ]
 }
 ```
 

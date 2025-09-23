@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dist/**",
-      "use": "@vercel/static"
-    }
-  ],
+  "buildCommand": "cd .. && npm run build --workspace=shared && cd frontend && npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "cd .. && npm install && cd frontend",
   "routes": [
     {
       "handle": "filesystem"
@@ -14,6 +11,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "buildCommand": "npm run build"
+  ]
 }

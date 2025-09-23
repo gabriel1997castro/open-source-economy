@@ -27,12 +27,6 @@ jobs:
           node-version: "20"
           cache: "npm"
 
-      - name: Install dependencies
-        run: npm install --ignore-scripts
-
-      - name: Build shared package
-        run: npm run build --workspace=shared
-
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
@@ -42,14 +36,6 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_BACKEND }}
-
-      - name: Build Project Artifacts
-        run: |
-          cd backend
-          npx prisma generate
-          npm run build
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Deploy to Vercel
         run: |
@@ -77,12 +63,6 @@ jobs:
           node-version: "20"
           cache: "npm"
 
-      - name: Install dependencies
-        run: npm install --ignore-scripts
-
-      - name: Build shared package
-        run: npm run build --workspace=shared
-
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
@@ -92,9 +72,6 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
-
-      - name: Build Frontend
-        run: npm run build --workspace=frontend
 
       - name: Deploy to Vercel
         run: |
