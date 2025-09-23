@@ -79,20 +79,20 @@ jobs:
         run: |
           npm run build --workspace=frontend
           cd frontend
-          npm run preview -- --port 4173 &
+          npm run preview -- --port 5173 &
 
           # Wait for frontend to be ready
-          timeout 60s bash -c 'until curl -f http://localhost:4173; do sleep 2; done'
+          timeout 60s bash -c 'until curl -f http://localhost:5173; do sleep 2; done'
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: "http://localhost:4173, http://localhost:3001/api/health"
+          wait-on: "http://localhost:5173, http://localhost:3001/api/health"
           wait-on-timeout: 120
           browser: chrome
           spec: cypress/e2e/**/*.cy.ts
         env:
-          CYPRESS_baseUrl: http://localhost:4173
+          CYPRESS_baseUrl: http://localhost:5173
           CYPRESS_BACKEND_API_URL: http://localhost:3001/api
 
       - name: Upload Cypress screenshots
