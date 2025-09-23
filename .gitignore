@@ -18,5 +18,11 @@ lerna-debug.log*
 
 /shared/dist/
 shared/tsconfig.tsbuildinfo
-backend/.env.test
-frontend/.env
+
+# Environment files (production envs are in Vercel dashboard)
+.env.local
+.env.*.local
+backend/.env
+backend/.env.*
+# Keep frontend/.env for local development
+# frontend/.env

@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd .. && npm run build --workspace=shared && npm run build --workspace=frontend",
+  "outputDirectory": "dist",
+  "installCommand": "cd .. && npm install",
+  "framework": "vite",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
