@@ -73,7 +73,7 @@ jobs:
           npm start &
 
           # Wait for backend to be ready
-          timeout 60s bash -c 'until curl -f http://localhost:3001/health; do sleep 2; done'
+          timeout 60s bash -c 'until curl -f http://localhost:3001/api/health; do sleep 2; done'
 
       - name: Build and start frontend server
         run: |
@@ -87,7 +87,7 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: "http://localhost:4173, http://localhost:3001/health"
+          wait-on: "http://localhost:4173, http://localhost:3001/api/health"
           wait-on-timeout: 120
           browser: chrome
           spec: cypress/e2e/**/*.cy.ts
