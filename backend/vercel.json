@@ -1,24 +1,4 @@
 {
-  "version": 2,
-  "buildCommand": "cd .. && npm run build --workspace=shared && cd backend && npx prisma generate && npm run build",
-  "installCommand": "cd .. && npm install",
-  "functions": {
-    "dist/server.js": {
-      "runtime": "nodejs20.x",
-      "maxDuration": 30
-    }
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/dist/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/server.js"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "buildCommand": "cd .. && npm install && npm run build --workspace=shared && cd backend && npx prisma generate && npm run build",
+  "installCommand": "cd .. && npm install"
 }
