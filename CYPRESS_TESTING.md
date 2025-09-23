@@ -44,7 +44,7 @@ This project includes comprehensive end-to-end tests using Cypress to test both 
 
 ### Prerequisites
 1. Frontend development server running on `http://localhost:5173`
-2. Backend API server running on `http://localhost:3000`
+2. Backend API server running on `http://localhost:3001`
 3. Database properly configured and migrations run
 
 ### Installation
