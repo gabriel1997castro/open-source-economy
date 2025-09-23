@@ -238,3 +238,88 @@ Cypress tests run automatically on every pull request via GitHub Actions. The pi
 ### Test Data Management
 
 Tests automatically clean up any data they create using dedicated cleanup endpoints, ensuring no test pollution between runs.
+
+## 🚀 Deployment
+
+This project uses GitHub Actions to automatically deploy to Vercel. The frontend and backend are deployed to separate Vercel projects.
+
+### Automatic Deployment
+
+Deployments are triggered automatically on:
+- Pushes to `main` or `master` branch (production deployment)
+- Merged pull requests to `main` or `master` branch (production deployment)
+- Pull request updates (preview deployments)
+
+### Vercel Configuration
+
+#### Required Secrets
+
+Add these secrets to your GitHub repository settings:
+
+```bash
+VERCEL_TOKEN              # Vercel API token
+VERCEL_ORG_ID            # Your Vercel organization ID
+VERCEL_PROJECT_ID_FRONTEND # Frontend project ID on Vercel
+VERCEL_PROJECT_ID_BACKEND  # Backend project ID on Vercel
+DATABASE_URL             # PostgreSQL connection string for backend
+```
+
+#### Environment Variables
+
+**Backend Environment Variables (set in Vercel dashboard):**
+```env
+DATABASE_URL=your_postgresql_connection_string
+NODE_ENV=production
+CORS_ORIGIN=https://your-frontend-domain.vercel.app
+```
+
+**Frontend Environment Variables (set in Vercel dashboard):**
+```env
+VITE_API_URL=https://your-backend-api.vercel.app/api
+```
+
+### Manual Deployment
+
+You can also deploy manually using Vercel CLI:
+
+```bash
+# Deploy backend
+cd backend
+vercel --prod
+
+# Deploy frontend  
+cd frontend
+vercel --prod
+```
+
+### Deployment Architecture
+
+- **Frontend**: Single Page Application (SPA) deployed as static files
+- **Backend**: Serverless API functions deployed to Vercel
+- **Database**: PostgreSQL (recommended: Neon, PlanetScale, or Vercel Postgres)
+- **Shared Package**: Built during CI/CD and used by both frontend and backend
+
+### Build Process
+
+The deployment workflow follows this build order:
+1. Install dependencies 
+2. Build shared package (contains TypeScript types)
+3. Generate Prisma client (backend only)
+4. Build backend/frontend
+5. Deploy to respective Vercel projects
+
+### Troubleshooting Deployment
+
+**Common Issues:**
+
+1. **Prisma Client Not Found**
+   - Ensure `DATABASE_URL` environment variable is set
+   - Check that Prisma generates successfully during build
+
+2. **Shared Package Build Fails**
+   - The shared package must build first as other packages depend on it
+   - Check TypeScript configuration in `shared/tsconfig.json`
+
+3. **Vercel Project Not Found**
+   - Verify `VERCEL_PROJECT_ID_*` secrets are correct
+   - Check that Vercel projects exist and are linked to the correct organization
