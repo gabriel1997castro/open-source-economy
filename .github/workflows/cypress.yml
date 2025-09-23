@@ -46,6 +46,9 @@ jobs:
       - name: Build shared package
         run: npm run build --workspace=shared
 
+      - name: Build backend
+        run: npm run build --workspace=backend
+
       - name: Setup test database
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/open_source_economy_test
@@ -61,16 +64,15 @@ jobs:
           PORT: 3001
         run: |
           cd backend
-          npm run build
           npm start &
 
           # Wait for backend to be ready
           timeout 60s bash -c 'until curl -f http://localhost:3001/health; do sleep 2; done'
 
-      - name: Start frontend server
+      - name: Build and start frontend server
         run: |
+          npm run build --workspace=frontend
           cd frontend
-          npm run build
           npm run preview -- --port 4173 &
 
           # Wait for frontend to be ready
