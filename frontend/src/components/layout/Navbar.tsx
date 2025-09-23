@@ -17,14 +17,14 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleNavigation = (item: typeof navigation[0]) => {
+  const handleNavigation = (item: (typeof navigation)[0]) => {
     if (item.isContact) {
       // Navigate to home page first, then scroll to contact section
       navigate("/");
       setTimeout(() => {
-        const contactSection = document.querySelector('#contact');
+        const contactSection = document.querySelector("#contact");
         if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth' });
+          contactSection.scrollIntoView({ behavior: "smooth" });
         }
       }, 100);
     } else {
@@ -34,7 +34,7 @@ export function Navbar() {
     setIsOpen(false);
   };
 
-  const isCurrentPage = (item: typeof navigation[0]) => {
+  const isCurrentPage = (item: (typeof navigation)[0]) => {
     if (item.href === "/") {
       return location.pathname === "/";
     }
@@ -74,10 +74,10 @@ export function Navbar() {
 
           {/* Sign In Button */}
           <div className="hidden md:block">
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               size="md"
-              onClick={() => navigate('/signin')}
+              onClick={() => navigate("/signin")}
             >
               Sign In
             </Button>
@@ -89,6 +89,7 @@ export function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-neutral-gray-200 hover:text-neutral-white hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-neutral-white"
               aria-expanded={isOpen}
+              aria-label="Open main menu"
             >
               <span className="sr-only">Open main menu</span>
               {isOpen ? (
@@ -124,9 +125,9 @@ export function Navbar() {
               );
             })}
             <div className="pt-2">
-              <button 
+              <button
                 onClick={() => {
-                  navigate('/signin');
+                  navigate("/signin");
                   setIsOpen(false);
                 }}
                 className="w-full bg-gradient-to-r from-primary-500 to-secondary-300 hover:from-primary-700 hover:to-secondary-500 text-neutral-white px-3 py-2 rounded-md text-base font-medium transition-all duration-200"
