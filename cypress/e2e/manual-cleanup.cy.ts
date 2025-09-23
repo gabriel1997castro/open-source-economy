@@ -24,8 +24,8 @@ describe("Manual Cleanup", () => {
       url: `${baseUrl}/contact`,
       failOnStatusCode: false,
     }).then((response) => {
-      if (response.status === 200 && response.body.data) {
-        const testContacts = response.body.data.filter((contact: any) =>
+      if (response.status === 200 && response.body.data && response.body.data.submissions) {
+        const testContacts = response.body.data.submissions.filter((contact: any) =>
           contact.email.includes("cypress.")
         );
         cy.log(`Found ${testContacts.length} remaining test contacts`);
@@ -42,8 +42,8 @@ describe("Manual Cleanup", () => {
       url: `${baseUrl}/newsletter`,
       failOnStatusCode: false,
     }).then((response) => {
-      if (response.status === 200 && response.body.data) {
-        const testSubscriptions = response.body.data.filter((sub: any) =>
+      if (response.status === 200 && response.body.data && response.body.data.subscriptions) {
+        const testSubscriptions = response.body.data.subscriptions.filter((sub: any) =>
           sub.email.includes("cypress.")
         );
         cy.log(
