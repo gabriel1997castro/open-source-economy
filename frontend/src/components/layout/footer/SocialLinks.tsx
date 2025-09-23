@@ -1,4 +1,4 @@
-import { LinkedInIcon, XTwitterIcon, YouTubeIcon } from "../icons";
+import { LinkedInIcon, XTwitterIcon, YouTubeIcon } from "../../icons";
 
 interface SocialLinksProps {
   className?: string;
