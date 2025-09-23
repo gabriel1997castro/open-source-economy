@@ -22,7 +22,7 @@ src/
 - **Framework**: Express.js 5.x
 - **Database**: PostgreSQL with Prisma ORM
 - **Validation**: Zod for runtime type checking
-- **Testing**: Jest with Supertest
+- **Testing**: Covered by Cypress E2E tests (no unit tests)
 - **Development**: Nodemon with hot reload
 
 ## 🚀 **Getting Started**
@@ -238,39 +238,35 @@ Manages newsletter subscriptions:
 
 ## 🧪 **Testing**
 
-### **Test Structure**
+### **E2E Testing with Cypress**
 
-```
-src/__tests__/
-├── unit/
-│   ├── controllers/     # Controller unit tests
-│   ├── services/        # Service layer tests
-│   └── middleware/      # Middleware tests
-└── integration/         # API endpoint tests
-```
+This backend is tested exclusively through **Cypress end-to-end tests** that run against the full application stack. We don't use unit or integration tests - instead, Cypress validates the complete user workflows.
 
-### **Running Tests**
+### **Test Coverage**
 
-```bash
-# Run all tests
-npm test
+Cypress tests cover:
+- **API Endpoints**: Contact form and newsletter subscription endpoints
+- **Database Operations**: Data persistence, validation, cleanup
+- **Error Handling**: Validation errors, server errors, edge cases
+- **Integration**: Frontend-backend communication
 
-# Run tests in watch mode
-npm run test:watch
+### **Test Data Management**
 
-# Run with coverage
-npm run test:coverage
-```
-
-### **Test Database**
+The backend provides cleanup endpoints specifically for testing:
 
 ```bash
-# Test database connection
-npm run test:db
-
-# Reset test database
-npm run db:reset
+# Cleanup test data (used by Cypress)
+POST /api/contact/cleanup/test     # Remove test contacts
+POST /api/newsletter/cleanup/test  # Remove test newsletter subscriptions
 ```
+
+### **CI/CD Testing**
+
+Tests run automatically on every pull request via GitHub Actions:
+1. PostgreSQL test database is provisioned
+2. Backend server starts with test configuration
+3. Cypress runs complete test suite
+4. Test data is automatically cleaned up
 
 ## 📦 **Database Operations**
 

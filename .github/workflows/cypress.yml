@@ -1,0 +1,108 @@
+name: Cypress E2E Tests
+
+on:
+  pull_request:
+    branches: [ main, master ]
+  push:
+    branches: [ main, master ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: open_source_economy_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared package
+        run: npm run build --workspace=shared
+
+      - name: Setup test database
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/open_source_economy_test
+        run: |
+          cd backend
+          npx prisma migrate deploy
+          npx prisma generate
+
+      - name: Start backend server
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/open_source_economy_test
+          NODE_ENV: test
+          PORT: 3001
+        run: |
+          cd backend
+          npm run build
+          npm start &
+          
+          # Wait for backend to be ready
+          timeout 60s bash -c 'until curl -f http://localhost:3001/health; do sleep 2; done'
+
+      - name: Start frontend server
+        run: |
+          cd frontend
+          npm run build
+          npm run preview -- --port 4173 &
+          
+          # Wait for frontend to be ready
+          timeout 60s bash -c 'until curl -f http://localhost:4173; do sleep 2; done'
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          wait-on: 'http://localhost:4173, http://localhost:3001/health'
+          wait-on-timeout: 120
+          browser: chrome
+          spec: cypress/e2e/**/*.cy.ts
+        env:
+          CYPRESS_baseUrl: http://localhost:4173
+          CYPRESS_BACKEND_API_URL: http://localhost:3001/api
+
+      - name: Upload Cypress screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          retention-days: 7
+
+      - name: Upload Cypress videos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          retention-days: 7
+
+      - name: Clean up test data
+        if: always()
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/open_source_economy_test
+        run: |
+          # Run cleanup endpoints to remove any test data
+          curl -X POST http://localhost:3001/api/contact/cleanup/test || true
+          curl -X POST http://localhost:3001/api/newsletter/cleanup/test || true
