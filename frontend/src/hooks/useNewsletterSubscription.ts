@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ContactApiService } from "../services/api";
 import type { NewsletterData } from "@open-source-economy/shared";
+import { emailRegex } from "../regex";
 
 interface UseNewsletterSubscriptionReturn {
   email: string;
@@ -20,7 +21,7 @@ export const useNewsletterSubscription =
     const [error, setError] = useState("");
 
     const subscribe = async () => {
-      if (!email || !email.includes("@")) {
+      if (!email || !emailRegex.test(email.trim())) {
         setError("Please enter a valid email address");
         return;
       }
