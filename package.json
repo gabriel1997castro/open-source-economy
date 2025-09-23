@@ -15,6 +15,12 @@
     "backend",
     "shared"
   ],
+  "devDependencies": {
+    "cypress": "^13.7.2",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.11.24"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -33,7 +33,7 @@ export const SocialLinks = ({ className = "" }: SocialLinksProps) => {
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-neutral-gray-50 hover:text-neutral-white transition-colors"
+          className="text-neutral-gray-50 hover:text-primary-700 transition-colors"
           aria-label={social.name}
         >
           {social.icon}

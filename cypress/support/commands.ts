@@ -15,30 +15,38 @@ declare global {
        * Custom command to select DOM element by data-cy attribute.
        * @example cy.dataCy('greeting')
        */
-      dataCy(value: string): Chainable<JQuery<HTMLElement>>
-      
+      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+
       /**
        * Custom command to test API endpoint directly
        * @example cy.testApiEndpoint('POST', '/contact', { name: 'Test', email: 'test@example.com' })
        */
-      testApiEndpoint(method: string, endpoint: string, body?: any): Chainable<Response>
+      testApiEndpoint(
+        method: string,
+        endpoint: string,
+        body?: any
+      ): Chainable<Response<any>>;
     }
   }
 }
 
-Cypress.Commands.add('dataCy', (value) => {
-  return cy.get(`[data-cy=${value}]`)
-})
+Cypress.Commands.add("dataCy", (value) => {
+  return cy.get(`[data-cy=${value}]`);
+});
 
-Cypress.Commands.add('testApiEndpoint', (method: string, endpoint: string, body?: any) => {
-  const baseUrl = Cypress.env('BACKEND_API_URL') || 'http://localhost:3000/api'
-  
-  return cy.request({
-    method,
-    url: `${baseUrl}${endpoint}`,
-    body,
-    failOnStatusCode: false
-  })
-})
+Cypress.Commands.add(
+  "testApiEndpoint",
+  (method: string, endpoint: string, body?: any) => {
+    const baseUrl =
+      Cypress.env("BACKEND_API_URL") || "http://localhost:3001/api";
 
-export {}
+    return cy.request({
+      method,
+      url: `${baseUrl}${endpoint}`,
+      body,
+      failOnStatusCode: false,
+    });
+  }
+);
+
+export {};
