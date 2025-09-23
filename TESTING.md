@@ -48,6 +48,7 @@ npm run test:e2e:headless
 ### Prerequisites for Local Testing
 
 1. **Start the development servers**:
+
    ```bash
    npm run dev  # Starts both backend and frontend
    ```
@@ -80,6 +81,7 @@ cypress/
 Tests the core business functionality:
 
 - **Contact Form Submission**
+
   - Valid form submission
   - Email validation
   - Required field validation
@@ -96,6 +98,7 @@ Tests the core business functionality:
 Tests user interface and navigation:
 
 - **Desktop Navigation**
+
   - Header link functionality
   - Smooth scrolling behavior
 
@@ -112,8 +115,8 @@ All tests automatically clean up their data using dedicated cleanup endpoints:
 
 ```typescript
 // Custom Cypress commands for cleanup
-cy.cleanupTestContacts()    // Removes test contact submissions
-cy.cleanupTestNewsletter()  // Removes test newsletter subscriptions
+cy.cleanupTestContacts(); // Removes test contact submissions
+cy.cleanupTestNewsletter(); // Removes test newsletter subscriptions
 ```
 
 ### Cleanup Endpoints
@@ -138,17 +141,20 @@ POST /api/newsletter/cleanup/test  # Remove all test subscriptions
 Tests run automatically on every pull request via `.github/workflows/cypress.yml`:
 
 1. **Environment Setup**
-   - Ubuntu runner with Node.js 18
+
+   - Ubuntu runner with Node.js 20
    - PostgreSQL test database
    - Install dependencies
 
 2. **Application Startup**
+
    - Build shared package
    - Setup and migrate test database
    - Start backend server (port 3001)
    - Start frontend server (port 4173)
 
 3. **Test Execution**
+
    - Run Cypress tests with Chrome browser
    - Wait for servers to be ready
    - Execute all test specs
@@ -172,32 +178,34 @@ DATABASE_URL: postgresql://postgres:postgres@localhost:5432/open_source_economy_
 ### Best Practices
 
 1. **Use Page Object Pattern**
+
    ```typescript
    // Good: Descriptive selectors
-   cy.get('[data-testid="contact-form"]')
-   
+   cy.get('[data-testid="contact-form"]');
+
    // Avoid: Fragile selectors
-   cy.get('.css-class-123')
+   cy.get(".css-class-123");
    ```
 
 2. **Test User Workflows**
+
    ```typescript
-   it('should allow user to submit contact form', () => {
-     cy.visit('/')
-     cy.get('[data-testid="name-input"]').type('Test User')
-     cy.get('[data-testid="email-input"]').type('test@example.com')
-     cy.get('[data-testid="message-input"]').type('Test message')
-     cy.get('[data-testid="submit-button"]').click()
-     cy.contains('Thank you! Your message has been sent.')
-   })
+   it("should allow user to submit contact form", () => {
+     cy.visit("/");
+     cy.get('[data-testid="name-input"]').type("Test User");
+     cy.get('[data-testid="email-input"]').type("test@example.com");
+     cy.get('[data-testid="message-input"]').type("Test message");
+     cy.get('[data-testid="submit-button"]').click();
+     cy.contains("Thank you! Your message has been sent.");
+   });
    ```
 
 3. **Clean Up After Tests**
    ```typescript
    afterEach(() => {
-     cy.cleanupTestContacts()
-     cy.cleanupTestNewsletter()
-   })
+     cy.cleanupTestContacts();
+     cy.cleanupTestNewsletter();
+   });
    ```
 
 ### Adding New Test Cases
@@ -224,12 +232,14 @@ DATABASE_URL: postgresql://postgres:postgres@localhost:5432/open_source_economy_
 
 ### Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| Test timeouts | Increase wait times or check server startup |
-| Element not found | Use `data-testid` attributes, wait for elements |
-| API failures | Check backend logs, verify database connection |
-| Flaky tests | Add proper waits, ensure cleanup runs |
+| Issue                    | Solution                                                       |
+| ------------------------ | -------------------------------------------------------------- |
+| Node.js version errors   | Ensure Node.js 20+ is installed (required for latest packages) |
+| Package lock sync issues | Run `npm install` instead of `npm ci` to update lock file      |
+| Test timeouts            | Increase wait times or check server startup                    |
+| Element not found        | Use `data-testid` attributes, wait for elements                |
+| API failures             | Check backend logs, verify database connection                 |
+| Flaky tests              | Add proper waits, ensure cleanup runs                          |
 
 ## 📊 Test Coverage Philosophy
 

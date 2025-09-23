@@ -186,7 +186,7 @@ src/
 ```typescript
 // Cypress tests cover the complete application:
 1. Contact form submission workflow
-2. Newsletter subscription flow  
+2. Newsletter subscription flow
 3. Form validation and error handling
 4. Navigation and mobile menu behavior
 5. API integration and data persistence

@@ -31,7 +31,7 @@ project-root/
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - npm or yarn
 - PostgreSQL (or use Neon for cloud database)
 
@@ -220,14 +220,16 @@ npm run test:e2e:headless
 ### Test Coverage
 
 Our Cypress tests cover:
+
 - **Contact Form**: Submission, validation, error handling
-- **Newsletter Subscription**: Signup, validation, duplicate handling  
+- **Newsletter Subscription**: Signup, validation, duplicate handling
 - **Navigation**: Menu functionality, mobile responsive behavior
 - **API Integration**: Backend endpoints, database operations
 
 ### CI/CD Pipeline
 
 Cypress tests run automatically on every pull request via GitHub Actions. The pipeline:
+
 1. Sets up PostgreSQL test database
 2. Builds and starts backend/frontend servers
 3. Runs complete Cypress test suite

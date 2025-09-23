@@ -2,14 +2,14 @@ name: Cypress E2E Tests
 
 on:
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
   push:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    
+
     services:
       postgres:
         image: postgres:15
@@ -32,11 +32,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
+
+      - name: Verify Node.js version
+        run: |
+          node --version
+          npm --version
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build shared package
         run: npm run build --workspace=shared
@@ -58,7 +63,7 @@ jobs:
           cd backend
           npm run build
           npm start &
-          
+
           # Wait for backend to be ready
           timeout 60s bash -c 'until curl -f http://localhost:3001/health; do sleep 2; done'
 
@@ -67,14 +72,14 @@ jobs:
           cd frontend
           npm run build
           npm run preview -- --port 4173 &
-          
+
           # Wait for frontend to be ready
           timeout 60s bash -c 'until curl -f http://localhost:4173; do sleep 2; done'
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: 'http://localhost:4173, http://localhost:3001/health'
+          wait-on: "http://localhost:4173, http://localhost:3001/health"
           wait-on-timeout: 120
           browser: chrome
           spec: cypress/e2e/**/*.cy.ts

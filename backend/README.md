@@ -29,7 +29,7 @@ src/
 
 ### **Prerequisites**
 
-- Node.js 18+ and npm
+- Node.js 20+ and npm
 - PostgreSQL database (local or cloud)
 - Environment variables configured
 
@@ -245,6 +245,7 @@ This backend is tested exclusively through **Cypress end-to-end tests** that run
 ### **Test Coverage**
 
 Cypress tests cover:
+
 - **API Endpoints**: Contact form and newsletter subscription endpoints
 - **Database Operations**: Data persistence, validation, cleanup
 - **Error Handling**: Validation errors, server errors, edge cases
@@ -263,6 +264,7 @@ POST /api/newsletter/cleanup/test  # Remove test newsletter subscriptions
 ### **CI/CD Testing**
 
 Tests run automatically on every pull request via GitHub Actions:
+
 1. PostgreSQL test database is provisioned
 2. Backend server starts with test configuration
 3. Cypress runs complete test suite
