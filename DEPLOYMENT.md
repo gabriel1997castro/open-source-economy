@@ -41,7 +41,7 @@ open-source-economy/
   "version": 2,
   "functions": {
     "api/index.ts": {
-      "runtime": "@vercel/node"
+      "runtime": "nodejs20.x"
     }
   },
   "routes": [
