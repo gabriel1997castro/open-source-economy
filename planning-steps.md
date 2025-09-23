@@ -21,7 +21,7 @@ project-root/
 - **Frontend**: React 18 + TypeScript + Tailwind CSS + Vite
 - **Backend**: Express.js + TypeScript + PostgreSQL + Prisma ORM
 - **Deployment**: Vercel (frontend + backend) + Neon PostgreSQL
-- **Testing**: Jest + React Testing Library + Supertest
+- **Testing**: Cypress (End-to-End testing only)
 - **Tooling**: ESLint, Prettier, Husky for git hooks
 
 #### 1.3 Development Environment
@@ -139,11 +139,13 @@ export const newsletterSchema = z.object({
 #### 3.2 Testing Strategy
 
 ```typescript
-// Backend tests to implement:
-1. API endpoint integration tests
-2. Database service unit tests
-3. Validation middleware tests
-4. Error handling tests
+// E2E testing with Cypress covers:
+1. Complete user workflows (contact form, newsletter signup)
+2. API endpoint integration validation
+3. Database operations and cleanup
+4. Frontend-backend integration
+5. Mobile responsive behavior
+6. Error handling and validation
 ```
 
 ### **Phase 4: Frontend Implementation**
@@ -177,24 +179,26 @@ src/
 - Custom hooks for API calls
 - Error and loading state management
 
-### **Phase 5: Integration & Testing**
+### **Phase 5: Integration & E2E Testing**
 
-#### 5.1 Frontend Testing
+#### 5.1 Cypress E2E Testing
 
 ```typescript
-// Frontend tests:
-1. Component rendering tests
-2. Form validation tests
-3. API integration tests
-4. User interaction tests
-5. Accessibility tests
+// Cypress tests cover the complete application:
+1. Contact form submission workflow
+2. Newsletter subscription flow
+3. Form validation and error handling
+4. Navigation and mobile menu behavior
+5. API integration and data persistence
+6. Automated test data cleanup
 ```
 
-#### 5.2 End-to-End Testing
+#### 5.2 Testing Infrastructure
 
-- Form submission workflows
-- Error handling scenarios
-- Success state verification
+- Cypress runs on every pull request via GitHub Actions
+- Automated test database setup and teardown
+- Test data cleanup to prevent pollution between runs
+- Screenshot and video capture for debugging failures
 
 ### **Phase 6: UI/UX Implementation**
 
@@ -290,7 +294,7 @@ Track and document:
 1. **Boilerplate Generation** - Initial project structure
 2. **Component Templates** - React component scaffolding
 3. **API Route Logic** - Express route handlers
-4. **Test Case Generation** - Unit and integration tests
+4. **Cypress Test Cases** - End-to-end test scenarios
 5. **Documentation** - README and code comments
 6. **Debugging** - Error resolution assistance
 

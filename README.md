@@ -31,7 +31,7 @@ project-root/
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - npm or yarn
 - PostgreSQL (or use Neon for cloud database)
 
@@ -202,12 +202,39 @@ npm run build
 
 ## 🧪 Testing
 
-```bash
-# Run all tests
-npm test
+This project uses **Cypress for end-to-end testing only**. We don't use unit or integration tests - instead, we rely on comprehensive E2E tests that validate the entire application flow.
 
-# Test specific package
-npm test --workspace=backend
-npm test --workspace=frontend
-npm test --workspace=shared
+### Running Cypress Tests
+
+```bash
+# Run Cypress tests in headless mode (CI/CD)
+npm run test:e2e
+
+# Open Cypress interactive test runner (development)
+npm run test:e2e:open
+
+# Run tests headless with full browser output
+npm run test:e2e:headless
 ```
+
+### Test Coverage
+
+Our Cypress tests cover:
+
+- **Contact Form**: Submission, validation, error handling
+- **Newsletter Subscription**: Signup, validation, duplicate handling
+- **Navigation**: Menu functionality, mobile responsive behavior
+- **API Integration**: Backend endpoints, database operations
+
+### CI/CD Pipeline
+
+Cypress tests run automatically on every pull request via GitHub Actions. The pipeline:
+
+1. Sets up PostgreSQL test database
+2. Builds and starts backend/frontend servers
+3. Runs complete Cypress test suite
+4. Cleans up test data automatically
+
+### Test Data Management
+
+Tests automatically clean up any data they create using dedicated cleanup endpoints, ensuring no test pollution between runs.

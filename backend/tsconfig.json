@@ -5,7 +5,8 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
-      "@open-source-economy/shared": ["../shared/dist/index"]
+      "@open-source-economy/shared": ["../shared/dist/index"],
+      "@open-source-economy/shared/*": ["../shared/dist/*"]
     },
     "target": "es2016",
     "module": "commonjs" /* Specify what module code is generated. */,

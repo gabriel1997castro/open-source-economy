@@ -1,1 +1,1 @@
-export * from "../../../shared/types";
+export * from "@open-source-economy/shared";

@@ -2,6 +2,10 @@
   "name": "open-source-economy",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && npm run dev",
@@ -16,7 +20,7 @@
     "shared"
   ],
   "devDependencies": {
-    "cypress": "^13.7.2",
+    "cypress": "^15.2.0",
     "concurrently": "^8.2.2",
     "typescript": "^5.2.2",
     "@types/node": "^20.11.24"
