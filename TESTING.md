@@ -151,7 +151,7 @@ Tests run automatically on every pull request via `.github/workflows/cypress.yml
    - Build shared package
    - Setup and migrate test database
    - Start backend server (port 3001)
-   - Start frontend server (port 4173)
+   - Start frontend server (port 5173)
 
 3. **Test Execution**
 
@@ -168,7 +168,7 @@ Tests run automatically on every pull request via `.github/workflows/cypress.yml
 
 ```yaml
 # Key environment variables
-CYPRESS_baseUrl: http://localhost:4173
+CYPRESS_baseUrl: http://localhost:5173
 CYPRESS_BACKEND_API_URL: http://localhost:3001/api
 DATABASE_URL: postgresql://postgres:postgres@localhost:5432/open_source_economy_test
 ```
