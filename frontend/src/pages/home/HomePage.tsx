@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { LoadingSpinner } from "../../components";
-import { Footer } from "../../components/footer";
 import { LandingSections } from "../../lazyComponents";
 
 export const HomePage = () => {
@@ -23,8 +22,6 @@ export const HomePage = () => {
           <LandingSections.GetInTouch />
         </div>
       </Suspense>
-
-      <Footer />
     </div>
   );
 };
