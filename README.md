@@ -35,6 +35,22 @@ project-root/
 - npm or yarn
 - PostgreSQL (or use Neon for cloud database)
 
+### 🚀 Quick Start - Deployment
+
+To set up automatic deployment to Vercel:
+
+```bash
+# 1. Run the setup script
+./scripts/setup-vercel.sh
+
+# 2. Validate configuration
+./scripts/validate-deployment.sh
+```
+
+Then configure your GitHub repository secrets and Vercel environment variables as guided by the script.
+
+**For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)**
+
 ### Installation
 
 1. **Clone and install dependencies**
