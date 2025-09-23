@@ -51,4 +51,66 @@ export class NewsletterService {
       },
     };
   }
+
+  static async deleteNewsletterSubscription(id: number) {
+    try {
+      const subscription = await prisma.newsletterSubscription.findUnique({
+        where: { id },
+      });
+
+      if (!subscription) {
+        throw new Error("Newsletter subscription not found");
+      }
+
+      await prisma.newsletterSubscription.delete({
+        where: { id },
+      });
+
+      return { id, deleted: true };
+    } catch (error) {
+      console.error("Database error deleting newsletter subscription:", error);
+      if (
+        error instanceof Error &&
+        error.message === "Newsletter subscription not found"
+      ) {
+        throw error;
+      }
+      throw new Error("Failed to delete newsletter subscription");
+    }
+  }
+
+  static async unsubscribeByEmail(email: string) {
+    try {
+      const subscription = await prisma.newsletterSubscription.findUnique({
+        where: { email },
+      });
+
+      if (!subscription) {
+        throw new Error("Newsletter subscription not found");
+      }
+
+      if (!subscription.isActive) {
+        throw new Error("Email is already unsubscribed");
+      }
+
+      const updatedSubscription = await prisma.newsletterSubscription.update({
+        where: { email },
+        data: {
+          isActive: false,
+        },
+      });
+
+      return { email, unsubscribed: true };
+    } catch (error) {
+      console.error("Database error unsubscribing from newsletter:", error);
+      if (
+        error instanceof Error &&
+        (error.message === "Newsletter subscription not found" ||
+          error.message === "Email is already unsubscribed")
+      ) {
+        throw error;
+      }
+      throw new Error("Failed to unsubscribe from newsletter");
+    }
+  }
 }

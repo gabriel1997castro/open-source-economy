@@ -18,4 +18,7 @@ router.get("/", ContactController.getContactSubmissions);
 // GET /api/contact/:id - Get specific submission (admin)
 router.get("/:id", ContactController.getContactSubmissionById);
 
+// DELETE /api/contact/:id - Delete specific submission (admin)
+router.delete("/:id", ContactController.deleteContactSubmission);
+
 export default router;
