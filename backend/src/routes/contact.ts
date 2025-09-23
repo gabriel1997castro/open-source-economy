@@ -21,4 +21,10 @@ router.get("/:id", ContactController.getContactSubmissionById);
 // DELETE /api/contact/:id - Delete specific submission (admin)
 router.delete("/:id", ContactController.deleteContactSubmission);
 
+// POST /api/contact/cleanup/test - Delete all test contact submissions (admin)
+router.post("/cleanup/test", ContactController.cleanupTestContacts);
+
+// POST /api/contact/cleanup/emails - Delete contact submissions by emails (admin)
+router.post("/cleanup/emails", ContactController.cleanupContactsByEmails);
+
 export default router;

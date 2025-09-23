@@ -85,4 +85,43 @@ export class ContactService {
       throw new Error("Failed to delete contact submission");
     }
   }
+
+  static async deleteContactsByEmails(emails: string[]) {
+    try {
+      if (!emails || emails.length === 0) {
+        return { deletedCount: 0 };
+      }
+
+      const deleteResult = await prisma.contactSubmission.deleteMany({
+        where: {
+          email: {
+            in: emails,
+          },
+        },
+      });
+
+      return { deletedCount: deleteResult.count };
+    } catch (error) {
+      console.error("Database error deleting contacts by emails:", error);
+      throw new Error("Failed to delete contacts by emails");
+    }
+  }
+
+  static async deleteTestContacts() {
+    try {
+      // Delete all contacts with cypress test emails
+      const deleteResult = await prisma.contactSubmission.deleteMany({
+        where: {
+          email: {
+            contains: "cypress.",
+          },
+        },
+      });
+
+      return { deletedCount: deleteResult.count };
+    } catch (error) {
+      console.error("Database error deleting test contacts:", error);
+      throw new Error("Failed to delete test contacts");
+    }
+  }
 }

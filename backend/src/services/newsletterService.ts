@@ -113,4 +113,43 @@ export class NewsletterService {
       throw new Error("Failed to unsubscribe from newsletter");
     }
   }
+
+  static async deleteSubscriptionsByEmails(emails: string[]) {
+    try {
+      if (!emails || emails.length === 0) {
+        return { deletedCount: 0 };
+      }
+
+      const deleteResult = await prisma.newsletterSubscription.deleteMany({
+        where: {
+          email: {
+            in: emails,
+          },
+        },
+      });
+
+      return { deletedCount: deleteResult.count };
+    } catch (error) {
+      console.error("Database error deleting subscriptions by emails:", error);
+      throw new Error("Failed to delete subscriptions by emails");
+    }
+  }
+
+  static async deleteTestSubscriptions() {
+    try {
+      // Delete all subscriptions with cypress test emails
+      const deleteResult = await prisma.newsletterSubscription.deleteMany({
+        where: {
+          email: {
+            contains: "cypress.",
+          },
+        },
+      });
+
+      return { deletedCount: deleteResult.count };
+    } catch (error) {
+      console.error("Database error deleting test subscriptions:", error);
+      throw new Error("Failed to delete test subscriptions");
+    }
+  }
 }

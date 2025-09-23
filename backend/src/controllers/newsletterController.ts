@@ -125,4 +125,50 @@ export class NewsletterController {
       }
     }
   );
+
+  static cleanupTestSubscriptions = asyncHandler(
+    async (req: Request, res: Response): Promise<Response> => {
+      try {
+        const result = await NewsletterService.deleteTestSubscriptions();
+
+        const response: ApiResponse<typeof result> = {
+          success: true,
+          message: `Deleted ${result.deletedCount} test newsletter subscriptions`,
+          data: result,
+        };
+        return res.status(200).json(response);
+      } catch (error) {
+        throw error; // Let asyncHandler catch other errors
+      }
+    }
+  );
+
+  static cleanupSubscriptionsByEmails = asyncHandler(
+    async (req: Request, res: Response): Promise<Response> => {
+      const { emails } = req.body;
+
+      if (!emails || !Array.isArray(emails)) {
+        const response: ApiResponse<null> = {
+          success: false,
+          error: "Emails array is required",
+        };
+        return res.status(400).json(response);
+      }
+
+      try {
+        const result = await NewsletterService.deleteSubscriptionsByEmails(
+          emails
+        );
+
+        const response: ApiResponse<typeof result> = {
+          success: true,
+          message: `Deleted ${result.deletedCount} newsletter subscriptions`,
+          data: result,
+        };
+        return res.status(200).json(response);
+      } catch (error) {
+        throw error; // Let asyncHandler catch other errors
+      }
+    }
+  );
 }
