@@ -1,4 +1,4 @@
-import { useScrollAnimation } from "../hooks";
+import { useScrollAnimation } from "../../hooks";
 
 // Example 1: Simple scroll animation
 export const SimpleAnimatedSection = () => {

@@ -1,12 +1,10 @@
-import Decrease from "../assets/decrease.svg";
-import Money from "../assets/money.svg";
-import Pause from "../assets/pause.svg";
-import { useScrollAnimation } from "../hooks";
+import { DecreaseIcon, MoneyIcon, PauseIcon } from "../icons";
+import { useScrollAnimation } from "../../hooks";
 
 const impactData = [
   {
     id: 1,
-    icon: Decrease,
+    icon: DecreaseIcon,
     title: "Reputational Damage",
     color: "text-primary-500",
     items: [
@@ -17,7 +15,7 @@ const impactData = [
   },
   {
     id: 2,
-    icon: Money,
+    icon: MoneyIcon,
     title: "Financial Devastation",
     color: "text-primary-500",
     items: [
@@ -28,7 +26,7 @@ const impactData = [
   },
   {
     id: 3,
-    icon: Pause,
+    icon: PauseIcon,
     title: "Operational Paralysis",
     color: "text-primary-500",
     items: [
@@ -85,6 +83,7 @@ const AnimatedImpactCard = ({
   });
 
   const itemAnimations = [item1Animation, item2Animation, item3Animation];
+  const IconComponent = impact.icon;
 
   return (
     <div
@@ -94,12 +93,8 @@ const AnimatedImpactCard = ({
     >
       {/* Icon & Title */}
       <div className="mb-4" ref={iconAnimation.ref}>
-        <img
-          src={impact.icon}
-          alt={impact.title}
-          width="48"
-          height="48"
-          className={`w-12 h-12 ${iconAnimation.className}`}
+        <IconComponent
+          className={`w-12 h-12 text-primary-500 ${iconAnimation.className}`}
           style={iconAnimation.style}
         />
       </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ContactApiService } from "../services/api";
 import type { ContactFormData } from "@open-source-economy/shared";
+import { emailRegex } from "../regex";
 
 // Local form data interface matching the form field names
 interface FormData {
@@ -49,7 +50,7 @@ export const useContactForm = (): UseContactFormResult => {
 
     if (!formData.email.trim()) {
       errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!emailRegex.test(formData.email)) {
       errors.email = "Please enter a valid email address";
     }
 

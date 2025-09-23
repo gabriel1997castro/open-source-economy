@@ -1,5 +1,5 @@
-import { ContactForm } from "./ContactForm";
-import { useScrollAnimation } from "../hooks";
+import { ContactForm } from "../forms/ContactForm";
+import { useScrollAnimation } from "../../hooks";
 
 export const GetInTouch = () => {
   const headerAnimation = useScrollAnimation({

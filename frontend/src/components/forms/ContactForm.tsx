@@ -1,6 +1,7 @@
-import { Button } from "./Button";
-import { ErrorCard } from "./ErrorCard";
-import { useContactForm } from "../hooks";
+import { Button } from "../ui/Button";
+import { ErrorCard } from "../ui/ErrorCard";
+import { useContactForm } from "../../hooks";
+import { EmailIcon, CheckmarkIcon } from "../icons";
 
 export const ContactForm = () => {
   const {
@@ -42,12 +43,7 @@ export const ContactForm = () => {
 
   return (
     <>
-      <div
-        className="bg-background border border-gray-700 rounded-lg p-8 max-w-md mx-auto"
-        style={{
-          boxShadow: "0 25px 50px -12px rgba(239, 77, 172, 0.25)",
-        }}
-      >
+      <div className="bg-background border border-gray-700 rounded-lg p-8 max-w-md mx-auto shadow-primary">
         {/* Header */}
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-neutral-white mb-4">
@@ -78,7 +74,7 @@ export const ContactForm = () => {
                 onChange={handleInputChange}
                 placeholder="Your Full Name"
                 required
-                className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
+                className="w-full px-4 py-3 bg-input-bg border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
               />
               {validationErrors.fullName && (
                 <p className="mt-1 text-sm text-red-400">
@@ -102,22 +98,10 @@ export const ContactForm = () => {
                   onChange={handleInputChange}
                   placeholder="Your Email"
                   required
-                  className="w-full px-4 py-3 pr-10 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
+                  className="w-full px-4 py-3 pr-10 bg-input-bg border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                  <svg
-                    className="w-5 h-5 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                    />
-                  </svg>
+                  <EmailIcon className="w-5 h-5 text-gray-400" />
                 </div>
               </div>
               {validationErrors.email && (
@@ -143,7 +127,7 @@ export const ContactForm = () => {
               value={formData.linkedin}
               onChange={handleInputChange}
               placeholder="Your LinkedIn"
-              className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
+              className="w-full px-4 py-3 bg-input-bg border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
             />
             {validationErrors.linkedin && (
               <p className="mt-1 text-sm text-red-400">
@@ -168,7 +152,7 @@ export const ContactForm = () => {
               placeholder="Enter your message..."
               required
               rows={4}
-              className="w-full px-4 py-3 bg-background border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors resize-vertical"
+              className="w-full px-4 py-3 bg-input-bg border border-gray-600 rounded-lg text-neutral-white placeholder-gray-300 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors resize-vertical"
             />
             {validationErrors.message && (
               <p className="mt-1 text-sm text-red-400">
@@ -183,19 +167,7 @@ export const ContactForm = () => {
               <div className="mb-4 p-4 bg-green-900/30 border border-green-500/60 rounded-lg">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0">
-                    <svg
-                      className="w-5 h-5 text-green-400 mt-0.5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
+                    <CheckmarkIcon className="w-5 h-5 text-green-400 mt-0.5" />
                   </div>
                   <div className="flex-1">
                     <h4 className="text-green-300 font-medium text-sm mb-1">

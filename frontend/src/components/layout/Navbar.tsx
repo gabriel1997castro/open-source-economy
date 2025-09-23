@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { clsx } from "clsx";
-import { Button } from "./Button";
-import { Logo } from "./Logo";
+import { Button } from "../ui/Button";
+import { Logo } from "../ui/Logo";
 
 const navigation = [
   { name: "Home", href: "#", current: true },

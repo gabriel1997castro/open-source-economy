@@ -1,5 +1,5 @@
 import { RiskScoreCard } from "./RiskScoreCard";
-import { useScrollAnimation } from "../hooks";
+import { useScrollAnimation } from "../../hooks";
 
 const steps = [
   {

@@ -1,4 +1,5 @@
 import { Button } from "./Button";
+import { CloseIcon, ErrorIcon } from "../icons";
 
 interface ErrorCardProps {
   title?: string;
@@ -24,10 +25,7 @@ export const ErrorCard = ({
   return (
     <div className="fixed inset-0 bg-background/98 flex items-center justify-center p-4 z-50 mb-[-40px]">
       <div
-        className={`bg-background border border-gray-700 rounded-lg p-8 max-w-md mx-auto relative ${className}`}
-        style={{
-          boxShadow: "0 25px 50px -12px rgba(239, 77, 172, 0.25)",
-        }}
+        className={`bg-background border border-gray-700 rounded-lg p-8 max-w-md mx-auto relative shadow-primary ${className}`}
       >
         {/* Close Button */}
         {onClose && (
@@ -36,38 +34,14 @@ export const ErrorCard = ({
             className="absolute top-4 right-4 text-gray-400 hover:text-neutral-white transition-colors"
             aria-label="Close"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <CloseIcon className="w-6 h-6" />
           </button>
         )}
 
         {/* Error Icon */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary-700/30 rounded-full mb-4">
-            <svg
-              className="w-8 h-8 text-neutral-red-900"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1}
-                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <ErrorIcon className="w-8 h-8 text-neutral-red-900" />
           </div>
 
           {/* Title */}

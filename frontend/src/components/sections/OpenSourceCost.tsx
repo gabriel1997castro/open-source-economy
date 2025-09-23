@@ -1,7 +1,5 @@
-import TerminalIcon from "../assets/terminal.svg";
-import UsersIcon from "../assets/users.svg";
-import CompaniesIcon from "../assets/companies.svg";
-import { useScrollAnimation } from "../hooks";
+import { TerminalIcon, UsersIcon, CompaniesIcon } from "../icons";
+import { useScrollAnimation } from "../../hooks";
 
 const statistics = [
   {
@@ -36,6 +34,8 @@ const AnimatedStatistic = ({
     animationType: "scaleIn",
   });
 
+  const IconComponent = stat.icon;
+
   return (
     <div
       ref={animation.ref}
@@ -45,13 +45,7 @@ const AnimatedStatistic = ({
       {/* Icon */}
       <div className="flex justify-center mb-2">
         <div className="w-16 h-16 flex items-center justify-center">
-          <img
-            src={stat.icon}
-            alt="Icon"
-            width="48"
-            height="48"
-            className="w-12 h-12"
-          />
+          <IconComponent className="w-12 h-12 text-primary-500" />
         </div>
       </div>
 
