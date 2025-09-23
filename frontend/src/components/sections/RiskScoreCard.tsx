@@ -1,7 +1,4 @@
-import RiskScoreImg from "../../assets/risk-score.svg";
-import PeopleIcon from "../../assets/people.svg";
-import ShieldIcon from "../../assets/shield.svg";
-import LinkIcon from "../../assets/link.svg";
+import { RiskScoreIcon, PeopleIcon, ShieldIcon, LinkIcon } from "../icons";
 
 const riskData = {
   score: 56,
@@ -30,13 +27,7 @@ export const RiskScoreCard = () => {
 
           <div className="flex justify-center">
             <div className="relative w-56 h-56">
-              <img
-                src={RiskScoreImg}
-                alt="Risk Score"
-                width="224"
-                height="224"
-                className="w-56 h-56"
-              />
+              <RiskScoreIcon className="w-56 h-56" />
             </div>
           </div>
           {/* Why This Score Matters */}
@@ -62,18 +53,15 @@ export const RiskScoreCard = () => {
               What We Analyze
             </h4>
             <div className="space-y-2">
-              {riskData.whatWeAnalyze.map((item, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <img
-                    src={item.icon}
-                    alt={item.label}
-                    width="16"
-                    height="16"
-                    className="w-4 h-4"
-                  />
-                  <p className="text-xs text-neutral-white">{item.label}</p>
-                </div>
-              ))}
+              {riskData.whatWeAnalyze.map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <div key={index} className="flex items-center space-x-3">
+                    <IconComponent className="w-4 h-4 text-neutral-400" />
+                    <p className="text-xs text-neutral-white">{item.label}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
