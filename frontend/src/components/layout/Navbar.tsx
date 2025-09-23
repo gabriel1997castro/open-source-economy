@@ -1,56 +1,44 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { clsx } from "clsx";
 import { Button } from "../ui/Button";
 import { Logo } from "../ui/Logo";
 
 const navigation = [
-  { name: "Home", href: "#home", current: false },
-  { name: "About Us", href: "#about", current: false },
-  { name: "Solutions", href: "#solutions", current: false },
-  { name: "Contact Us", href: "#contact", current: false, isContact: true },
+  { name: "Home", href: "/", current: false },
+  { name: "About Us", href: "/about", current: false },
+  { name: "Solutions", href: "/solutions", current: false },
+  { name: "Contact Us", href: "/", current: false, isContact: true },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState('home');
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Track current page for highlighting
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1) || 'home';
-      setCurrentPage(hash);
-    };
-
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  const handleNavigation = (item: typeof navigation[0]) => {
+  const handleNavigation = (item: (typeof navigation)[0]) => {
     if (item.isContact) {
-      // For contact, navigate to home first, then scroll to contact section
-      if (window.location.hash !== '#home' && window.location.hash !== '') {
-        window.location.hash = '#home';
-        // Wait for page to load, then scroll
-        setTimeout(() => {
-          const contactSection = document.querySelector('#contact');
-          if (contactSection) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
-      } else {
-        // Already on home page, just scroll
-        const contactSection = document.querySelector('#contact');
+      // Navigate to home page first, then scroll to contact section
+      navigate("/");
+      setTimeout(() => {
+        const contactSection = document.querySelector("#contact");
         if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth' });
+          contactSection.scrollIntoView({ behavior: "smooth" });
         }
-      }
+      }, 100);
     } else {
       // Regular navigation
-      window.location.hash = item.href;
+      navigate(item.href);
     }
     setIsOpen(false);
+  };
+
+  const isCurrentPage = (item: (typeof navigation)[0]) => {
+    if (item.href === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname === item.href;
   };
 
   return (
@@ -64,7 +52,7 @@ export function Navbar() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {navigation.map((item) => {
-                const isCurrent = currentPage === item.href.slice(1) || (item.href === '#home' && currentPage === 'home');
+                const isCurrent = isCurrentPage(item);
                 return (
                   <button
                     key={item.name}
@@ -86,10 +74,10 @@ export function Navbar() {
 
           {/* Sign In Button */}
           <div className="hidden md:block">
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               size="md"
-              onClick={() => window.location.hash = '#signin'}
+              onClick={() => navigate("/signin")}
             >
               Sign In
             </Button>
@@ -101,6 +89,7 @@ export function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-neutral-gray-200 hover:text-neutral-white hover:bg-secondary-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-neutral-white"
               aria-expanded={isOpen}
+              aria-label="Open main menu"
             >
               <span className="sr-only">Open main menu</span>
               {isOpen ? (
@@ -118,7 +107,7 @@ export function Navbar() {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background">
             {navigation.map((item) => {
-              const isCurrent = currentPage === item.href.slice(1) || (item.href === '#home' && currentPage === 'home');
+              const isCurrent = isCurrentPage(item);
               return (
                 <button
                   key={item.name}
@@ -136,9 +125,9 @@ export function Navbar() {
               );
             })}
             <div className="pt-2">
-              <button 
+              <button
                 onClick={() => {
-                  window.location.hash = '#signin';
+                  navigate("/signin");
                   setIsOpen(false);
                 }}
                 className="w-full bg-gradient-to-r from-primary-500 to-secondary-300 hover:from-primary-700 hover:to-secondary-500 text-neutral-white px-3 py-2 rounded-md text-base font-medium transition-all duration-200"

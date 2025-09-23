@@ -9,6 +9,3 @@ export * from "./forms";
 
 // Section Components
 export * from "./sections";
-
-// Footer Components
-export * from "./footer";

@@ -5,13 +5,22 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && npm run dev",
-    "dev:frontend": "cd frontend && npm run dev"
+    "dev:frontend": "cd frontend && npm run dev",
+    "test:e2e": "cypress run",
+    "test:e2e:open": "cypress open",
+    "test:e2e:headless": "cypress run --headless"
   },
   "workspaces": [
     "frontend",
     "backend",
     "shared"
   ],
+  "devDependencies": {
+    "cypress": "^13.7.2",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.11.24"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

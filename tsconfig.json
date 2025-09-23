@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./frontend/src/*"],
+      "@backend/*": ["./backend/src/*"],
+      "@shared/*": ["./shared/src/*"]
+    }
+  },
+  "include": ["cypress/**/*", "shared/**/*"],
+  "exclude": ["node_modules", "dist", "build", "frontend", "backend"]
+}

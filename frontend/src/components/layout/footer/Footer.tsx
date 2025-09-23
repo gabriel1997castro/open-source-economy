@@ -2,7 +2,7 @@ import { FooterLogo } from "./FooterLogo";
 import { FooterSection } from "./FooterSection";
 import { FooterLink } from "./FooterLink";
 import { SocialLinks } from "./SocialLinks";
-import { NewsletterSubscription } from "../forms/NewsletterSubscription";
+import { NewsletterSubscription } from "../../forms/NewsletterSubscription";
 
 export const Footer = () => {
   return (
