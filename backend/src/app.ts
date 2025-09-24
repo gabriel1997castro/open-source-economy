@@ -12,6 +12,8 @@ app.use(
       "http://localhost:5173",
       "https://open-source-economy-frontend.vercel.app",
     ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
   })
 );
 app.use(express.json());
