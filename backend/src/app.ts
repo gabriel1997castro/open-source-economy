@@ -19,9 +19,12 @@ const corsOptions = {
       }
     }
 
-    // Get allowed origins from environment variables
+    // Your specific frontend domains
     const allowedOrigins = [
-      "https://open-source-economy-frontend.vercel.app/",
+      "https://open-source-economy-frontend.vercel.app",
+      "https://open-source-economy-fron-git-2eda14-gabriel1997castros-projects.vercel.app",
+      "https://open-source-economy-frontend-ixcyavc4i.vercel.app",
+      // Environment variable domains
       process.env.CORS_ORIGIN,
       process.env.FRONTEND_URL,
       // Add Vercel preview domains
@@ -29,7 +32,8 @@ const corsOptions = {
     ].filter(Boolean);
 
     // Check if origin is in allowed list
-    if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(origin)) {
+      console.log(`Allowing configured origin: ${origin}`);
       callback(null, true);
     } else {
       console.warn(`CORS blocked origin: ${origin}`);
