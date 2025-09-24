@@ -48,10 +48,10 @@ if [ -f "backend/vercel.json" ]; then
     success "Backend Vercel configuration exists"
     
     # Validate backend vercel.json structure
-    if grep -q "src/server.ts" "backend/vercel.json"; then
+    if grep -q "src/api/index.ts" "backend/vercel.json"; then
         success "Backend vercel.json has correct entry point"
     else
-        error "Backend vercel.json missing correct entry point (src/server.ts)"
+        error "Backend vercel.json missing correct entry point (src/api/index.ts)"
     fi
     
     if grep -q "@vercel/node" "backend/vercel.json"; then
@@ -67,7 +67,7 @@ if [ -f "frontend/vercel.json" ]; then
     success "Frontend Vercel configuration exists"
     
     # Validate frontend vercel.json structure
-    if grep -q "dist/\*\*" "frontend/vercel.json"; then
+    if grep -q "handle.*filesystem\|outputDirectory.*dist" "frontend/vercel.json"; then
         success "Frontend vercel.json configured for static files"
     else
         error "Frontend vercel.json missing static file configuration"
