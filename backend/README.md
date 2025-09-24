@@ -314,26 +314,6 @@ npm start
 - Request logging and monitoring
 - Security headers and rate limiting
 
-### **Vercel Deployment**
-
-The backend is configured for serverless deployment on Vercel:
-
-- API routes in `/api` directory
-- Environment variables in Vercel dashboard
-- Automatic deployments from Git
-
-## 📝 **Development Scripts**
-
-| Command              | Description              |
-| -------------------- | ------------------------ |
-| `npm run dev`        | Start development server |
-| `npm run dev:watch`  | Start with file watching |
-| `npm run build`      | Build for production     |
-| `npm start`          | Start production server  |
-| `npm test`           | Run test suite           |
-| `npm run db:migrate` | Run database migrations  |
-| `npm run db:studio`  | Open Prisma Studio       |
-
 ## 🤝 **Contributing**
 
 ### **Code Style**

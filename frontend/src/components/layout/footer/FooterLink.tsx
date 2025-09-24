@@ -12,9 +12,15 @@ export const FooterLink = ({
   children,
   external = false,
 }: FooterLinkProps) => {
-  const className = "text-neutral-gray-50 hover:text-neutral-white transition-colors text-sm";
-  
-  if (external || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) {
+  const className =
+    "text-neutral-gray-50 hover:text-primary-700 transition-colors text-sm";
+
+  if (
+    external ||
+    href.startsWith("http") ||
+    href.startsWith("mailto:") ||
+    href.startsWith("#")
+  ) {
     return (
       <a
         href={href}

@@ -29,17 +29,9 @@ project-root/
 
 ### ⚠️ CORS Security Note
 
-**Current Status**: CORS is configured to allow all origins temporarily due to Vercel's dynamic domain generation.
+**Current Status**: CORS is configured to allow only origin prod origin since vercel generate new domains for preview.
 
 **Why**: Vercel generates new domains for each deployment (e.g., `frontend-abc123.vercel.app`), making it impractical to maintain a static allowlist.
-
-**Implementation**: The backend logs blocked origins but allows all requests to prevent deployment issues.
-
-**For Production**: Consider using:
-
-- Custom domains with static CORS configuration
-- Environment variables for allowed origins
-- Stricter CORS once domain strategy is finalized
 
 See `backend/src/app.ts` for current CORS implementation details.
 
@@ -52,18 +44,6 @@ See `backend/src/app.ts` for current CORS implementation details.
 - PostgreSQL (or use Neon for cloud database)
 
 ### 🚀 Quick Start - Deployment
-
-To set up automatic deployment to Vercel:
-
-```bash
-# 1. Run the setup script
-./scripts/setup-vercel.sh
-
-# 2. Validate configuration
-./scripts/validate-deployment.sh
-```
-
-Then configure your GitHub repository secrets and Vercel environment variables as guided by the script.
 
 **For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)**
 
@@ -100,9 +80,12 @@ Then configure your GitHub repository secrets and Vercel environment variables a
 4. **Set up database**
 
    ```bash
-   cd backend
-   npx prisma migrate dev
-   cd ..
+      cd backend
+      # Generate Prisma client
+      npx prisma generate
+      # Migrations
+      npx prisma migrate dev
+      cd ..
    ```
 
 5. **Start development servers**
@@ -113,7 +96,7 @@ Then configure your GitHub repository secrets and Vercel environment variables a
 
    # Or start individually:
    npm run dev:backend    # Starts backend on http://localhost:3001
-   npm run dev:frontend   # Starts frontend on http://localhost:3000
+   npm run dev:frontend   # Starts frontend on http://localhost:5173
    ```
 
 ## 📦 Shared Types Package
@@ -271,32 +254,6 @@ Cypress tests run automatically on every pull request via GitHub Actions. The pi
 
 Tests automatically clean up any data they create using dedicated cleanup endpoints, ensuring no test pollution between runs.
 
-## 🚀 Deployment
-
-This project uses GitHub Actions to automatically deploy to Vercel. The frontend and backend are deployed to separate Vercel projects.
-
-### Automatic Deployment
-
-Deployments are triggered automatically on:
-
-- Pushes to `main` or `master` branch (production deployment)
-- Merged pull requests to `main` or `master` branch (production deployment)
-- Pull request updates (preview deployments)
-
-### Vercel Configuration
-
-#### Required Secrets
-
-Add these secrets to your GitHub repository settings:
-
-```bash
-VERCEL_TOKEN              # Vercel API token
-VERCEL_ORG_ID            # Your Vercel organization ID
-VERCEL_PROJECT_ID_FRONTEND # Frontend project ID on Vercel
-VERCEL_PROJECT_ID_BACKEND  # Backend project ID on Vercel
-DATABASE_URL             # PostgreSQL connection string for backend
-```
-
 #### Environment Variables
 
 **Backend Environment Variables (set in Vercel dashboard):**
@@ -343,21 +300,3 @@ The deployment workflow follows this build order:
 3. Generate Prisma client (backend only)
 4. Build backend/frontend
 5. Deploy to respective Vercel projects
-
-### Troubleshooting Deployment
-
-**Common Issues:**
-
-1. **Prisma Client Not Found**
-
-   - Ensure `DATABASE_URL` environment variable is set
-   - Check that Prisma generates successfully during build
-
-2. **Shared Package Build Fails**
-
-   - The shared package must build first as other packages depend on it
-   - Check TypeScript configuration in `shared/tsconfig.json`
-
-3. **Vercel Project Not Found**
-   - Verify `VERCEL_PROJECT_ID_*` secrets are correct
-   - Check that Vercel projects exist and are linked to the correct organization
