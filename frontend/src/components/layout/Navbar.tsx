@@ -35,6 +35,10 @@ export function Navbar() {
   };
 
   const isCurrentPage = (item: (typeof navigation)[0]) => {
+    // Contact Us should never be highlighted as "current" since it's an action, not a page
+    if (item.isContact) {
+      return false;
+    }
     if (item.href === "/") {
       return location.pathname === "/";
     }

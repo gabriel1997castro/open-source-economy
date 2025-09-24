@@ -34,6 +34,20 @@ describe("Navigation Tests", () => {
     cy.wait(200);
     // Check if contact section exists and is visible
     cy.get("#contact").should("be.visible");
+    // Contact Us should NOT be highlighted since it's an action, not a page
+    cy.get("nav").contains("Contact Us").should("not.have.class", "text-primary-500");
+    // Home should be highlighted since we're on the home page
+    cy.get("nav").contains("Home").should("have.class", "text-primary-500");
+  });
+
+  it("should never highlight contact us link as it's an action, not a page", () => {
+    // Visit different pages and ensure Contact Us is never highlighted
+    const pages = ["/", "/about", "/solutions"];
+    
+    pages.forEach((page) => {
+      cy.visit(page);
+      cy.get("nav").contains("Contact Us").should("not.have.class", "text-primary-500");
+    });
   });
 
   it("should work with mobile menu", () => {
@@ -54,16 +68,24 @@ describe("Navigation Tests", () => {
     // Test home page highlight
     cy.visit("/");
     cy.get("nav").contains("Home").should("have.class", "text-primary-500");
+    // Contact Us should NOT be highlighted when on home page
+    cy.get("nav").contains("Contact Us").should("not.have.class", "text-primary-500");
 
     // Test about page highlight
     cy.visit("/about");
     cy.get("nav").contains("About Us").should("have.class", "text-primary-500");
+    // Other links should not be highlighted
+    cy.get("nav").contains("Home").should("not.have.class", "text-primary-500");
+    cy.get("nav").contains("Contact Us").should("not.have.class", "text-primary-500");
 
     // Test solutions page highlight
     cy.visit("/solutions");
     cy.get("nav")
       .contains("Solutions")
       .should("have.class", "text-primary-500");
+    // Other links should not be highlighted
+    cy.get("nav").contains("Home").should("not.have.class", "text-primary-500");
+    cy.get("nav").contains("Contact Us").should("not.have.class", "text-primary-500");
   });
 
   it("should navigate back and forth between pages", () => {
