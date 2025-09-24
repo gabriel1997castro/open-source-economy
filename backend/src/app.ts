@@ -21,6 +21,7 @@ const corsOptions = {
 
     // Get allowed origins from environment variables
     const allowedOrigins = [
+      "https://open-source-economy-frontend.vercel.app/",
       process.env.CORS_ORIGIN,
       process.env.FRONTEND_URL,
       // Add Vercel preview domains
