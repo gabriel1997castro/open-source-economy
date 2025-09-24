@@ -10,7 +10,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://open-source-economy-frontend.vercel.app/",
+      "https://open-source-economy-frontend.vercel.app",
     ],
   })
 );
