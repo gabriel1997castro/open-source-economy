@@ -11,14 +11,14 @@ const corsOptions = {
   origin: function (origin: string | undefined, callback: Function) {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
+
     // In development, allow localhost origins
-    if (process.env.NODE_ENV !== 'production') {
-      if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+    if (process.env.NODE_ENV !== "production") {
+      if (origin.includes("localhost") || origin.includes("127.0.0.1")) {
         return callback(null, true);
       }
     }
-    
+
     // In production, check against allowed origins
     const allowedOrigins = [
       process.env.CORS_ORIGIN,
@@ -26,12 +26,12 @@ const corsOptions = {
       // Add common Vercel preview domains
       ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
     ].filter(Boolean);
-    
+
     // Allow any vercel.app domain in production for preview deployments
-    if (origin.endsWith('.vercel.app')) {
+    if (origin.endsWith(".vercel.app")) {
       return callback(null, true);
     }
-    
+
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -40,8 +40,8 @@ const corsOptions = {
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "Accept"],
 };
 
 // Middleware
@@ -49,7 +49,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Explicit OPTIONS handler for preflight requests
-app.options('*', cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // Routes
 app.use("/api/contact", contactRoutes);
