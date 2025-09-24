@@ -1,17 +1,17 @@
 import { Suspense } from "react";
-import { LoadingSpinner } from "../../components";
+import {
+  DoYouRemember,
+  LoadingSpinner,
+  OpenSourceCost,
+} from "../../components";
 import { LandingSections } from "../../lazyComponents";
 
 export const HomePage = () => {
   return (
     <div className="bg-background min-h-screen">
-      <Suspense fallback={<LoadingSpinner />}>
-        <LandingSections.OpenSourceCost />
-      </Suspense>
+      <OpenSourceCost />
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <LandingSections.DoYouRemember />
-      </Suspense>
+      <DoYouRemember />
 
       <Suspense fallback={<LoadingSpinner />}>
         <LandingSections.LetUsProtectYou />
