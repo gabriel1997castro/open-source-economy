@@ -39,15 +39,19 @@ open-source-economy/
 ```json
 {
   "version": 2,
-  "functions": {
-    "api/index.ts": {
-      "runtime": "nodejs20.x"
+  "builds": [
+    {
+      "src": "src/api/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "runtime": "nodejs20.x"
+      }
     }
-  },
+  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/index.ts"
+      "dest": "/src/api/index.ts"
     }
   ],
   "buildCommand": "cd .. && npm run build --workspace=shared && cd backend && npm run build",
