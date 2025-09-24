@@ -18,6 +18,6 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "buildCommand": "cd .. && npm ci && cd shared && npm run build && cd ../backend && mkdir -p node_modules/@open-source-economy && cp -r ../shared node_modules/@open-source-economy/shared && npx prisma generate && npm run build",
+  "buildCommand": "cd .. && npm ci && cd shared && npm run build && cd ../backend && mkdir -p node_modules/@open-source-economy/shared && cp ../shared/package.json node_modules/@open-source-economy/shared/ && cp -r ../shared/dist node_modules/@open-source-economy/shared/ && npx prisma generate && npm run build",
   "installCommand": "cd .. && npm ci"
 }
