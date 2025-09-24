@@ -25,7 +25,23 @@ project-root/
 1. Rate Limiting: Prevent spam by limiting requests per IP address
 2. Input Validation: Sanitize and validate all input data (implemented)
 3. Email Verification: For newsletter subscriptions, send confirmation emails
-4. CORS Configuration: Properly configure CORS for our frontend domain (implemented)
+4. CORS Configuration: ⚠️ **Currently permissive** - See security note below
+
+### ⚠️ CORS Security Note
+
+**Current Status**: CORS is configured to allow all origins temporarily due to Vercel's dynamic domain generation.
+
+**Why**: Vercel generates new domains for each deployment (e.g., `frontend-abc123.vercel.app`), making it impractical to maintain a static allowlist.
+
+**Implementation**: The backend logs blocked origins but allows all requests to prevent deployment issues.
+
+**For Production**: Consider using:
+
+- Custom domains with static CORS configuration
+- Environment variables for allowed origins
+- Stricter CORS once domain strategy is finalized
+
+See `backend/src/app.ts` for current CORS implementation details.
 
 ## 🚀 Getting Started
 
@@ -262,6 +278,7 @@ This project uses GitHub Actions to automatically deploy to Vercel. The frontend
 ### Automatic Deployment
 
 Deployments are triggered automatically on:
+
 - Pushes to `main` or `master` branch (production deployment)
 - Merged pull requests to `main` or `master` branch (production deployment)
 - Pull request updates (preview deployments)
@@ -283,6 +300,7 @@ DATABASE_URL             # PostgreSQL connection string for backend
 #### Environment Variables
 
 **Backend Environment Variables (set in Vercel dashboard):**
+
 ```env
 DATABASE_URL=your_postgresql_connection_string
 NODE_ENV=production
@@ -290,6 +308,7 @@ CORS_ORIGIN=https://your-frontend-domain.vercel.app
 ```
 
 **Frontend Environment Variables (set in Vercel dashboard):**
+
 ```env
 VITE_API_URL=https://your-backend-api.vercel.app/api
 ```
@@ -303,7 +322,7 @@ You can also deploy manually using Vercel CLI:
 cd backend
 vercel --prod
 
-# Deploy frontend  
+# Deploy frontend
 cd frontend
 vercel --prod
 ```
@@ -318,7 +337,8 @@ vercel --prod
 ### Build Process
 
 The deployment workflow follows this build order:
-1. Install dependencies 
+
+1. Install dependencies
 2. Build shared package (contains TypeScript types)
 3. Generate Prisma client (backend only)
 4. Build backend/frontend
@@ -329,10 +349,12 @@ The deployment workflow follows this build order:
 **Common Issues:**
 
 1. **Prisma Client Not Found**
+
    - Ensure `DATABASE_URL` environment variable is set
    - Check that Prisma generates successfully during build
 
 2. **Shared Package Build Fails**
+
    - The shared package must build first as other packages depend on it
    - Check TypeScript configuration in `shared/tsconfig.json`
 
