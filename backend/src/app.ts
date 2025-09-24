@@ -6,48 +6,16 @@ import { globalErrorHandler } from "./middleware/errorHandler";
 
 const app = express();
 
-// // CORS Configuration
-// const corsOptions = {
-//   origin: function (origin: string | undefined, callback: Function) {
-//     // Allow requests with no origin (like mobile apps or curl requests)
-//     if (!origin) return callback(null, true);
-
-//     // In development, allow localhost origins
-//     if (process.env.NODE_ENV !== "production") {
-//       if (origin.includes("localhost") || origin.includes("127.0.0.1")) {
-//         return callback(null, true);
-//       }
-//     }
-
-//     // Your specific frontend domains
-//     const allowedOrigins = [
-//       "https://open-source-economy-frontend.vercel.app",
-//       "https://open-source-economy-fron-git-2eda14-gabriel1997castros-projects.vercel.app",
-//       "https://open-source-economy-frontend-ixcyavc4i.vercel.app",
-//       // Environment variable domains
-//       process.env.CORS_ORIGIN,
-//       process.env.FRONTEND_URL,
-//       // Add Vercel preview domains
-//       ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
-//     ].filter(Boolean);
-
-//     // Check if origin is in allowed list
-//     if (allowedOrigins.includes(origin)) {
-//       console.log(`Allowing configured origin: ${origin}`);
-//       callback(null, true);
-//     } else {
-//       console.warn(`CORS blocked origin: ${origin}`);
-//       console.log(`Allowed origins: ${allowedOrigins.join(", ")}`);
-//       callback(null, true); // Allow for now, set to false for strict CORS
-//     }
-//   },
-//   credentials: true,
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization", "Accept"],
-// };
-
-// Middleware
-// app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://open-source-economy-frontend.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
 app.use(express.json());
 
 // Routes
