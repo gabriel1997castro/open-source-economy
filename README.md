@@ -262,6 +262,7 @@ This project uses GitHub Actions to automatically deploy to Vercel. The frontend
 ### Automatic Deployment
 
 Deployments are triggered automatically on:
+
 - Pushes to `main` or `master` branch (production deployment)
 - Merged pull requests to `main` or `master` branch (production deployment)
 - Pull request updates (preview deployments)
@@ -283,6 +284,7 @@ DATABASE_URL             # PostgreSQL connection string for backend
 #### Environment Variables
 
 **Backend Environment Variables (set in Vercel dashboard):**
+
 ```env
 DATABASE_URL=your_postgresql_connection_string
 NODE_ENV=production
@@ -290,6 +292,7 @@ CORS_ORIGIN=https://your-frontend-domain.vercel.app
 ```
 
 **Frontend Environment Variables (set in Vercel dashboard):**
+
 ```env
 VITE_API_URL=https://your-backend-api.vercel.app/api
 ```
@@ -303,7 +306,7 @@ You can also deploy manually using Vercel CLI:
 cd backend
 vercel --prod
 
-# Deploy frontend  
+# Deploy frontend
 cd frontend
 vercel --prod
 ```
@@ -318,7 +321,8 @@ vercel --prod
 ### Build Process
 
 The deployment workflow follows this build order:
-1. Install dependencies 
+
+1. Install dependencies
 2. Build shared package (contains TypeScript types)
 3. Generate Prisma client (backend only)
 4. Build backend/frontend
@@ -329,13 +333,22 @@ The deployment workflow follows this build order:
 **Common Issues:**
 
 1. **Prisma Client Not Found**
+
    - Ensure `DATABASE_URL` environment variable is set
    - Check that Prisma generates successfully during build
 
 2. **Shared Package Build Fails**
+
    - The shared package must build first as other packages depend on it
    - Check TypeScript configuration in `shared/tsconfig.json`
 
 3. **Vercel Project Not Found**
+
    - Verify `VERCEL_PROJECT_ID_*` secrets are correct
    - Check that Vercel projects exist and are linked to the correct organization
+
+4. **CORS Errors After Deployment**
+   - See detailed guide: [docs/CORS_FIX.md](./docs/CORS_FIX.md)
+   - Set `CORS_ORIGIN` environment variable in backend Vercel project
+   - Set `VITE_API_URL` environment variable in frontend Vercel project
+   - Use the test script: `./scripts/test-cors.sh`
