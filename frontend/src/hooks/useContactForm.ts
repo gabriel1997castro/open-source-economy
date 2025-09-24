@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ContactApiService } from "../services/api";
-import type { ContactFormData } from "@open-source-economy/shared";
+import type { ContactFormData } from "../../../shared/src/types";
 import { emailRegex } from "../regex";
 
 // Local form data interface matching the form field names

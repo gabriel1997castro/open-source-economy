@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ApiResponse, ContactFormData } from "@open-source-economy/shared";
+import { ApiResponse, ContactFormData } from "../../../shared/src/types";
 import { ContactService } from "../services/contactService";
 import { asyncHandler } from "../middleware/errorHandler";
 

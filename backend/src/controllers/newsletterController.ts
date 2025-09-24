@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { NewsletterData, ApiResponse } from "@open-source-economy/shared";
+import { NewsletterData, ApiResponse } from "../../../shared/src/types";
 import { NewsletterService } from "../services/newsletterService";
 import { asyncHandler } from "../middleware/errorHandler";
 

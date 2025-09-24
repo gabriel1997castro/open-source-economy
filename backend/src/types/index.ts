@@ -1,1 +1,1 @@
-export * from "@open-source-economy/shared";
+export * from "../../../shared/src";

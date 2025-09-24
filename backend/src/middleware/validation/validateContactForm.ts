@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { contactFormSchema } from "@open-source-economy/shared";
+import { contactFormSchema } from "../../../../shared/src/validation";
 
 export const validateContactForm = (
   req: Request,

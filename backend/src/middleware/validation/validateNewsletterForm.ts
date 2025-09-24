@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { newsletterSchema } from "@open-source-economy/shared";
+import { newsletterSchema } from "../../../../shared/src/validation";
 
 export const validateNewsletterForm = (
   req: Request,

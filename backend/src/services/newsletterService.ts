@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma";
-import { NewsletterData } from "@open-source-economy/shared";
+import { NewsletterData } from "../../../shared/src/types";
 
 export class NewsletterService {
   static async subscribeToNewsletter(data: NewsletterData) {

@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma";
-import { ContactFormData } from "@open-source-economy/shared";
+import { ContactFormData } from "../../../shared/src/types";
 
 export class ContactService {
   static async createContactSubmission(data: ContactFormData) {

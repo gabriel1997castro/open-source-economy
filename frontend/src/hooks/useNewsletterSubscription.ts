@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ContactApiService } from "../services/api";
-import type { NewsletterData } from "@open-source-economy/shared";
+import type { NewsletterData } from "../../../shared/src/types";
 import { emailRegex } from "../regex";
 
 interface UseNewsletterSubscriptionReturn {

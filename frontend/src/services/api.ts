@@ -3,7 +3,7 @@ import type {
   ContactFormData,
   ContactSubmissionResponse,
   NewsletterData,
-} from "@open-source-economy/shared";
+} from "../../../shared/src/types";
 import axios from "axios";
 
 // Configure axios instance
