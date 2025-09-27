@@ -25,7 +25,6 @@ project-root/
 1. Rate Limiting: Prevent spam by limiting requests per IP address
 2. Input Validation: Sanitize and validate all input data (implemented)
 3. Email Verification: For newsletter subscriptions, send confirmation emails
-4. CORS Configuration: ⚠️ **Currently permissive** - See security note below
 
 ### ⚠️ CORS Security Note
 
